@@ -11,9 +11,11 @@ class SongsController < ApplicationController
     # regex to cut out the id
     # make a query to Spotify fot track obj
     # get artist and title
-    # make queries to NetEase and QQ in order to get a link
+    # make queries to NetEase and QQ in order to get their objects
     # create a song with all the attributes from 3 apps track objs
-    # make up a msg
+    # make up a msg based on the links
+
+
 
 
     # if Ease Net
