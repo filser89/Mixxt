@@ -6,22 +6,45 @@ class SongsController < ApplicationController
     # understand what app it belongs to
     # check if it is in the DB
 
+    # if YES:
+
+    # generate message
+
+    # if NO:
+
+    # check what is app link belongs to
+
     # if Spotify
 
     # regex to cut out the id
     # make a query to Spotify fot track obj
     # get artist and title
     # make queries to NetEase and QQ in order to get their objects
-    # create a song with all the attributes from 3 apps track objs
-    # make up a msg based on the links
-
-
-
+    # create a song with title, artist and album
+    # create 3 song_detail instances (song: @song, app: {application}, url and hash_info with respective info)
+    # create history (user: current_user, song: @song)
+    # make up a msg based on the links (instance method of song)
 
     # if Ease Net
-
+    # regex to cut out the title and artist
+    # make queries to NetEase, QQ, and Spotify_search in order to get their objects
+    # create
+    # create a song with title, artist and album
+    # create 3 song_detail instances (song: @song, app: {application}, url and hash_info with respective info)
+    # create history (user: current_user, song: @song)
+    # make up a msg based on the links (instance method of song)
 
     # if QQ
+
+    # regex to cut out the title and artist
+    # make queries to NetEase, QQ, and Spotify_search in order to get their objects
+    # create
+    # create a song with title, artist and album
+    # create 3 song_detail instances (song: @song, app: {application}, url and hash_info with respective info)
+    # create history (user: current_user, song: @song)
+    # make up a msg based on the links (instance method of song)
+
+    # else "Sorry we can't convert your link as doesn't belong to one of the applications we support"
   end
 
   def display_global
