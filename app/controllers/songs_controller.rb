@@ -1,11 +1,22 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create, :display_global]
+  skip_before_action :authenticate_user!, only: [ :create, :display_global ]
+
+  def home
+    @song = Song.new
+
+  end
 
   def create
     # receive the link
-    # understand what app it belongs to
-    # check if it is in the DB
 
+    link = params[:link]
+
+    # understand what app it belongs to
+    app = check_user_app(link)
+    # check if it is in the DB
+    if app = "spotify"
+      song = Song.find_by("")
+    end
     # if YES:
 
     # generate message
@@ -57,5 +68,18 @@ class SongsController < ApplicationController
 
   def display_history
 
+  end
+
+  private
+
+  def check_user_app(link)
+    if /https:\/\/c.y.qq.com/.match?(link)
+      app = "qq"
+    elsif /https:\/\/y.music.163.com/.match?(link)
+      app = "net_ease"
+    elsif /https:\/\/open.spotify.com/.match?(link)
+      app = "spotify"
+    end
+    app
   end
 end
