@@ -1,0 +1,9 @@
+{
+    "name": "Mixxt",
+    "scripts": {
+        "dokku": {
+            "predeploy": "bundle exec rake assets:precompile",
+            "postdeploy": "rails db:migrate"
+        }
+    }
+}
