@@ -83,16 +83,30 @@ class SongsController < ApplicationController
     end
     app
   end
+  def call_net_ease_api_search(search_query)
+  # p search_query
+    url = "http://musicapi.leanapp.cn/search?keywords=#{search_query}"
+    res = RestClient.get(url)
+    data = JSON.parse(res)
+
+    data["result"]["songs"][0]["id"]
+  end
 
   def extract_url(link, app)
     if app == "spotify"
       url = link
     elsif app == "qq"
-      reg = /https:\/\/c.y.qq.com\/base\/fcgi-bin\/u\?__=\w+/
-      url = link.match(reg).to_s
+      name = /(?<=《).+(?=》)/
+      artist = /(?<=分享).+(?=的单曲)/
+      search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
+      net_ease_id = call_net_ease_api_search(search_query)
+      url = "https://y.music.163.com/m/song/#{net_ease_id}"
     elsif app == "net_ease"
-      reg = /https:\/\/y.music.163.com\/.\/song\/\d+/
-      url = link.match(reg).to_s
+      name = /(?<=《).+(?=》)/
+      artist = /(?<=分享).+(?=的单曲)/
+      search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
+      net_ease_id = call_net_ease_api_search(search_query)
+      url = "https://y.music.163.com/m/song/#{net_ease_id}"
     end
     url
   end
