@@ -1,0 +1,9 @@
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  &:hover {
+    filter: invert(100%) brightness(100%) contrast(100%);
+  }
+}
+
+
