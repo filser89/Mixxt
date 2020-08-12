@@ -2,3 +2,52 @@
 @import "alert";
 @import "avatar";
 @import "navbar";
+@import "icon";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  flex: 1 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  border: none;
+  height: 2rem;
+  text-align: center;
+  font-size: 19px;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  background: rgba(196, 196, 196, 0.2);
+}
+
+.link {
+  margin-top: 20px;
+  margin-right: 20px;
+}
