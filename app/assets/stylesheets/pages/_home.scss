@@ -18,11 +18,11 @@
 }
 
 #mixxtbtn {
-  position: relative;
+  position: absolute;
   width: 101px;
   height: 104px;
   left: 86px;
-  top: 150px;
+  top: 182px;
   border-radius: 50%;
   background: #EB7100;
   z-index: 2;
@@ -57,9 +57,11 @@ body {
 textarea {
   box-shadow: none;
   border: none;
-  height: 2rem;
+  height: 3rem;
   text-align: center;
   font-size: 24px;
   background: transparent;
   color: white;
+  text: bold;
+
 }
