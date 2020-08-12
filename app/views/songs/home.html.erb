@@ -1,31 +1,4 @@
-<head>
-  <script>
-  var looper;
-  var degrees = 0;
-  function rotateAnimation(el,speed){
-    var elem = document.getElementById(el);
-    if(navigator.userAgent.match("Chrome")){
-      elem.style.WebkitTransform = "rotate("+degrees+"deg)";
-    } else if(navigator.userAgent.match("Firefox")){
-      elem.style.MozTransform = "rotate("+degrees+"deg)";
-    } else if(navigator.userAgent.match("MSIE")){
-      elem.style.msTransform = "rotate("+degrees+"deg)";
-    } else if(navigator.userAgent.match("Opera")){
-      elem.style.OTransform = "rotate("+degrees+"deg)";
-    } else {
-      elem.style.transform = "rotate("+degrees+"deg)";
-    }
-      looper = setTimeout('rotateAnimation(\''+el+'\','+speed+')',speed);
-    degrees+=2;
-    if(degrees > 359){
-      degrees = 1;
-    }
-    document.getElementById("status").innerHTML = "rotate("+degrees+"deg)";
-  }
-  </script>
-</head>
-<body>
-  <div class="header">
+<div class="header">
     <div class="link">
       <%= link_to 'Log in' %>
     </div>
@@ -35,11 +8,11 @@
       <form action="/songs" method="post">
         <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
         <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>
-        <input type="submit" value="Mixxt" id="mixxtbtn">
+        <input type="submit" value="Mixxt" id="mixxtbtn" onclick="rotateAnimation('mixxtbtn',1);rotateAnimation('disc',1)">
       </form>
     </div>
    </div>
-      <%= image_tag "waves.jpeg", id: 'waves'%>
+      <%= image_tag "waves.png", id: 'waves'%>
       <%= image_tag "disc.png", id: 'disc' %>
 
   <div class="navbar">
@@ -48,9 +21,41 @@
     <%= image_tag "favoritesoff.png", class: 'nav-icon' %>
     <%= image_tag "globaloff.png", class: 'nav-icon' %>
   </div>
-  // <script>document.querySelector("#mixxtbtn").addEventListener("submit", ()=> {
-  //     event.preventDefault();
-  //     console.log(1);
-      rotateAnimation("disc",10);
-  })</script>
-</body>
+
+  <script>
+    // var looper;
+    var degrees = 0;
+    function rotateAnimation(el,speed) {
+      var elem = document.getElementById(el);
+      if(navigator.userAgent.match("Chrome")){
+        elem.style.WebkitTransform = "rotate("+degrees+"deg)";
+      } else if(navigator.userAgent.match("Firefox")){
+        elem.style.MozTransform = "rotate("+degrees+"deg)";
+      } else if(navigator.userAgent.match("MSIE")){
+        elem.style.msTransform = "rotate("+degrees+"deg)";
+      } else if(navigator.userAgent.match("Opera")){
+        elem.style.OTransform = "rotate("+degrees+"deg)";
+      } else {
+        elem.style.transform = "rotate("+degrees+"deg)";
+      }
+      if (degrees < 360) {
+        setTimeout('rotateAnimation(\''+el+'\','+speed+')',1)
+        degrees+=1;
+      } else {
+      degrees = 0
+      if(navigator.userAgent.match("Chrome")){
+        elem.style.WebkitTransform = "rotate(0deg)";
+      } else if(navigator.userAgent.match("Firefox")){
+        elem.style.MozTransform = "rotate(0deg)";
+      } else if(navigator.userAgent.match("MSIE")){
+        elem.style.msTransform = "rotate(0deg)";
+      } else if(navigator.userAgent.match("Opera")){
+        elem.style.OTransform = "rotate(0deg)";
+      } else {
+        elem.style.transform = "rotate(0deg)";
+      }
+    }
+    return degrees
+  }
+  </script>
+
