@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :create, :display_global ]
+  skip_before_action :authenticate_user!, only: [:home, :create, :display_global ]
 
   def home
     @song = Song.new
@@ -13,10 +13,11 @@ class SongsController < ApplicationController
 
     # understand what app it belongs to
     app = check_user_app(link)
+    # extract url from link
+    url = extract_url(link, app)
     # check if it is in the DB
-    if app = "spotify"
-      song = Song.find_by("")
-    end
+    song_detail = SongDetail.where("url=? AND app=?", url, app)
+    p song_detail
     # if YES:
 
     # generate message
@@ -81,5 +82,18 @@ class SongsController < ApplicationController
       app = "spotify"
     end
     app
+  end
+
+  def extract_url(link, app)
+    if app == "spotify"
+      url = link
+    elsif app == "qq"
+      reg = /https:\/\/c.y.qq.com\/base\/fcgi-bin\/u\?__=\w+/
+      url = link.match(reg).to_s
+    elsif app == "net_ease"
+      reg = /https:\/\/y.music.163.com\/.\/song\/\d+/
+      url = link.match(reg).to_s
+    end
+    url
   end
 end
