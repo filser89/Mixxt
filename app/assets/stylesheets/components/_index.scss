@@ -4,33 +4,12 @@
 @import "navbar";
 @import "icon";
 
-html, body {
-  height: 100%;
-}
-
-body {
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-}
-.container {
-  flex: 1 0 auto;
-}
 
 form {
   display: flex;
   flex-direction: column;
 }
 
-textarea {
-  margin-bottom: 20px;
-  background: rgba(0, 0, 0, 0);
-  box-shadow: none;
-  border: none;
-  height: 2rem;
-  text-align: center;
-  font-size: 19px;
-}
 
 .header {
   position: fixed;
@@ -50,4 +29,5 @@ textarea {
 .link {
   margin-top: 20px;
   margin-right: 20px;
+  text: white;
 }
