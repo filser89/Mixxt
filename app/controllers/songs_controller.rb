@@ -7,7 +7,7 @@ class SongsController < ApplicationController
 
   def create
     # receive the link
-
+    user = current_user
     link = params[:link]
 
     # understand what app it belongs to
@@ -20,16 +20,17 @@ class SongsController < ApplicationController
     if song_detail
       song = Song.find(song_detail.song_id)
       # generate message
+      Song.update_count(song, user)
+      p song
       @msg = song.generate_msg
       p @msg
     else
     # if NO:
       p "This song is not in the database"
-      song = Song.create_new_song(link, app, current_user)
+      song = Song.create_new_song(link, app, user)
       @msg = song.generate_msg
       p msg
     end
-
 
     # check what is app link belongs to
 
