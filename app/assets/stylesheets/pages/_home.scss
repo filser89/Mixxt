@@ -68,17 +68,35 @@ textarea {
   animation: rotate('720deg');
 }
 
-#mixxtbtn {
-  position: absolute;
-  width: 101px;
-  height: 104px;
-  left: 86px;
-  top: 182px;
-  border-radius: 50%;
-  background: #EB7100;
-  z-index: 2;
-  color: white;
-}
+// #mixxtbtn {
+//   position: absolute;
+//   width: 101px;
+//   height: 104px;
+//   left: 86px;
+//   top: 182px;
+//   border-radius: 50%;
+//   background: #EB7100;
+//   z-index: 2;
+//   color: white;
+//   cursor:pointer;
+// }
+// #mixxtbtn::after {
+//   content:'';
+//   z-index:1;
+//   background-color:hsla(0,0%,100%,.2);
+//   position:absolute;
+//   top:-50%;
+//   bottom:-50%;
+//   width:1.25em;
+//   transform:translate3d(-1000%,0,0) rotate(35deg)
+// }
+
+// #mixxtbtn:hover::after {
+//   transition:transform .45s ease-in-out;
+//   transform:translate3d(200%,0,0) rotate(35deg)
+// }
+
+
 a{
   color: white;
 }
@@ -119,4 +137,9 @@ textarea {
 textarea:focus {
   box-shadow: none;
   border: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
