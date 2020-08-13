@@ -17,9 +17,6 @@
     </form>
   </div>
 
-</div>
-
-
 <div class="navbar">
   <%= image_tag "mixoff.png", class: 'nav-icon' %>
   <%= image_tag "historyoff.png", class: 'nav-icon' %>
@@ -48,6 +45,7 @@
         setTimeout('rotateAnimation(\''+el+'\','+speed+')',1)
         degrees+=1;
         document.querySelector('.glow-on-hover').style.opacity = 0.8
+        console.log('setting oppacity')
       } else {
         degrees = 0
         elem.style.zIndex = 0

@@ -3,6 +3,7 @@ class SongsController < ApplicationController
 
   def home
     @song = Song.new
+    display_history
   end
 
   def create
