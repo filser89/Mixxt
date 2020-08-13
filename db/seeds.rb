@@ -9,8 +9,8 @@ require 'json'
 require 'rest-client'
 require 'base64'
 
-User.destroy_all if Rails.env.development?
 Song.destroy_all if Rails.env.development?
+User.destroy_all if Rails.env.development?
 
 
 
