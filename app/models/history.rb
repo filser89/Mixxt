@@ -1,4 +1,4 @@
 class History < ApplicationRecord
   belongs_to :user, optional: true
-  belongs_to :song, dependant: destroy
+  belongs_to :song
 end
