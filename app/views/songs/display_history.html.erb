@@ -1,8 +1,8 @@
 <div class="container-self">
   <div class="header">
-    <%= image_tag 'settingsoff.png', class: 'nav-icon' %>
+    <%= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
     <p class="header-title">History</p>
-    <%= image_tag 'deleteoff.png', class: 'nav-icon' %>
+    <%= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
   </div>
   <div class="cards">
     <% @songs.each do |song| %>
@@ -18,9 +18,24 @@
     <% end %>
   </div>
   <div class="navbar">
-    <%= image_tag 'mixoff.png', class: 'nav-icon' %>
-    <%= image_tag 'historyoff.png', class: 'nav-icon' %>
+    <%= link_to image_tag('mixoff.png', class: 'nav-icon'), root_path %>
+    <%= image_tag 'historyoff.png', class: 'nav-icon current' %>
     <%= image_tag 'favoritesoff.png', class: 'nav-icon' %>
     <%= image_tag 'globaloff.png', class: 'nav-icon' %>
   </div>
 </div>
+<script>
+  const header = document.querySelector('.header');
+  let prevScrollPos = window.pageYOffset;
+
+  window.addEventListener('scroll', () => {
+    let currentScrollPos = window.pageYOffset;
+
+    if (prevScrollPos < currentScrollPos) {
+      header.classList.add('hide');
+    } else {
+      header.classList.remove('hide');
+    }
+    prevScrollPos = currentScrollPos;
+  })
+</script>
