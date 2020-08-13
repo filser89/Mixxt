@@ -2,9 +2,9 @@
 #waves {
   position: absolute;
   width: 378px;
-  height: 196px;
+  height: 102px;
   left: 16px;
-  top: 309px;
+  top: 355px;
   opacity: 0.51;
 }
 
@@ -15,6 +15,10 @@
   left: 74px;
   top: 270.92px;
   box-shadow: inset 100px 100px 100px rgba(43, 21, 12, 0.1);
+}
+
+#disc:click {
+  animation: rotate('720deg');
 }
 
 #mixxtbtn {
@@ -63,5 +67,9 @@ textarea {
   background: transparent;
   color: white;
   text: bold;
+}
 
+textarea:focus {
+  box-shadow: none;
+  border: none;
 }
