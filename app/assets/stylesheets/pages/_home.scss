@@ -83,23 +83,23 @@ textarea {
   background:transparent;
 }
 
-#mixxtbtn {
-  position: absolute;
-  width: 101px;
-  height: 104px;
-  left: auto;
-  top: 5rem;
-  border-radius: 50%;
-  background: #EB7100;
-  z-index: 2;
-  color: white;
-  cursor:pointer;
-}
+// #mixxtbtn {
+//   position: absolute;
+//   width: 101px;
+//   height: 104px;
+//   left: auto;
+//   top: 5rem;
+//   border-radius: 50%;
+//   background: #EB7100;
+//   z-index: 2;
+//   color: white;
+//   cursor:pointer;
+// }
 
 
 
 .glow-on-hover {
-  position: absolute;
+  position: relative;
   width: 270px;
   height: 270px;
     border-radius: 50%;
@@ -119,9 +119,10 @@ textarea {
     background: linear-gradient(45deg, #ffff3f, #efe100, #f0c200, #f1a400, #f28500, #e26813, #ff8436, #ff8436);
     // background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
 
-    // position: absolute;
+    position: absolute;
     // left: 70px;
-    top: 0;
+    top: -4px;
+    left: -4px;
     background-size: 400%;
     z-index: -10;
     filter: blur(5px);
@@ -145,6 +146,7 @@ textarea {
 //     top: 0;
 //     opacity: 0;
 // }
+
 .glow-on-hover:active {
     color: #000;
 }
@@ -154,7 +156,7 @@ textarea {
 }
 
 .glow-on-hover:hover:before {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 @keyframes glowing {
     0% {
