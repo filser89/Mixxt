@@ -19,13 +19,13 @@ module CreateMethods
     def extract_url(link, app)
       if app == "spotify"
         reg = /\Ahttps:\/\/open.spotify.com\/track\/.+(?=\?)/
-        url = link.match(reg)
+        url = link.match(reg).to_s
 
       elsif app == "net_ease"
         name_reg = /(?<=《).+(?=》)/
-        name = link.match(name_reg)
+        name = link.match(name_reg).to_s
         artist_reg = /(?<=分享).+(?=的单曲)/
-        artist = link.match(artist_reg)
+        artist = link.match(artist_reg).to_s
         search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
         # p search_query
         net_ease_id = call_net_ease_api_search(search_query)
@@ -34,9 +34,9 @@ module CreateMethods
 
       elsif app == "qq"
         name_reg = /(?<=《).+(?=》)/
-        name = link.match(name_reg)
+        name = link.match(name_reg).to_s
         artist_reg = /\A.+(?=《)/
-        artist = link.match(artist_reg)
+        artist = link.match(artist_reg).to_s
         search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
         qq_hash = call_qq_api_search(search_query)
         qq_id = qq_hash["list"][0]["songid"]
@@ -87,7 +87,7 @@ module CreateMethods
         # regex to cut out the id
         reg = /(?<=https:\/\/open.spotify.com\/track\/).+(?=\?)/
         # make a query to Spotify fot track obj
-        id = link.match(reg)
+        id = link.match(reg).to_s
 
 
         track = call_spotify_api_id(token, id)
@@ -97,8 +97,8 @@ module CreateMethods
       elsif ["net_ease", "qq"].include?(app)
         name_reg = app == "net_ease" ? /(?<=《).+(?=》)/ : /(?<=《).+(?=》)/
         artist_reg = app == "net_ease" ? /(?<=分享).+(?=的单曲)/ : /\A.+(?=《)/
-        name = link.match(name_reg)
-        artist = link.match(artist_reg)
+        name = link.match(name_reg).to_s
+        artist = link.match(artist_reg).to_s
         search_query = CGI.escape("#{name} #{artist}".gsub(/[^\x00-\x7F]/, ""))
         track = call_spotify_api_search(token, search_query)
         create_song_from_spotify_track(track, user)

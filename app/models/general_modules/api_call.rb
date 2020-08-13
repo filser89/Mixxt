@@ -1,3 +1,4 @@
+require 'net/http'
 module ApiCall
   extend ActiveSupport::Concern
   def self.included base
@@ -9,14 +10,19 @@ module ApiCall
     def call_net_ease_api_search(search_query)
       url = "http://musicapi.leanapp.cn/search?keywords=#{search_query}"
       res = RestClient.get(url)
-      data = JSON.parse(res)
+      data = JSON.parse(res) ? JSON.parse(res) : JSON.parse(res.gsub()-1)
 
       data["result"]["songs"][0]["id"]
     end
 
     def call_qq_api_search(search_query)
+
       url = "https://c.y.qq.com/soso/fcgi-bin/client_search_cp?p=1&n=2&w=#{search_query}&format=json"
-      res = RestClient.get(url)
+      res = Net::HTTP.get(URI.parse(url))
+      res.gsub!(res.first(9),"") if res.first(9) == "callback("
+      res.gsub!(res.last,"") if res.last == ")"
+
+
       data = JSON.parse(res)
       data["data"]["song"]
     end
