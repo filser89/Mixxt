@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-self">
   <div class="header">
     <%= image_tag 'settingsoff.png', class: 'nav-icon' %>
     <p class="header-title">History</p>
@@ -8,9 +8,12 @@
     <% @songs.each do |song| %>
       <div class="card-container">
         <%= image_tag song.cover_image_url, class: 'cover-image' %>
-        <%= song.artist %>
-        <%= song.name %>
-        <%= song.updated_at %>
+        <div class="card-container-infos">
+          <h2><%= song.name %></h2>
+          <p><%= song.artist %></p>
+          <p><%= song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
+        </div>
+        <button class="btn-blue">Share</button>
       </div>
     <% end %>
   </div>
