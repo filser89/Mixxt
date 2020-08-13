@@ -1,0 +1,29 @@
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(196, 196, 196, 0.2);
+  padding: 8px;
+  overflow: hidden
+}
+
+.container {
+  overflow: hidden;
+}
+
+.cover-image {
+  width: 100px;
+  height: 100px;
+}
+
+.header-title {
+  margin: 0;
+}
