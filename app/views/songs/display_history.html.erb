@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="header">
+    <%= image_tag 'settingsoff.png', class: 'nav-icon' %>
+    <p class="header-title">History</p>
+    <%= image_tag 'deleteoff.png', class: 'nav-icon' %>
+  </div>
+  <div class="cards">
+    <% @songs.each do |song| %>
+      <div class="card-container">
+        <%= image_tag song.cover_image_url, class: 'cover-image' %>
+        <%= song.artist %>
+        <%= song.name %>
+        <%= song.updated_at %>
+      </div>
+    <% end %>
+  </div>
+  <div class="navbar">
+    <%= image_tag 'mixoff.png', class: 'nav-icon' %>
+    <%= image_tag 'historyoff.png', class: 'nav-icon' %>
+    <%= image_tag 'favoritesoff.png', class: 'nav-icon' %>
+    <%= image_tag 'globaloff.png', class: 'nav-icon' %>
+  </div>
+</div>

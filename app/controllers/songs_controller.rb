@@ -60,7 +60,7 @@ class SongsController < ApplicationController
   end
 
   def display_global
-
+    @songs = Song.all
   end
 
   def display_favorites
@@ -68,7 +68,8 @@ class SongsController < ApplicationController
   end
 
   def display_history
-
+    @user = User.first
+    @songs = @user.songs
   end
 
   private
