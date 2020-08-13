@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'global', to: 'songs#display_global'
   get 'favorites', to: 'songs#display_favorites'
   get 'history', to: 'songs#display_history'
+  patch 'share_from_btn', to: 'songs#share_from_btn'
 end
 # # get 'about', to: 'pages#about'
 # /songs  post  songs create

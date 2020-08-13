@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_11_044118) do
+ActiveRecord::Schema.define(version: 2020_08_13_064820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "histories", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "song_id", null: false
     t.integer "share_count", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
     t.index ["song_id"], name: "index_histories_on_song_id"
     t.index ["user_id"], name: "index_histories_on_user_id"
   end
