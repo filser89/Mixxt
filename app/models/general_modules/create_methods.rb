@@ -77,17 +77,18 @@ module CreateMethods
 
       p "Created #{name} by #{artist}"
       p "================================================="
+      song
     end
 
     def create_new_song(link, app, user)
       # if Spotify
+      token = get_spotify_token
       if app == "spotify"
         # regex to cut out the id
         reg = /(?<=https:\/\/open.spotify.com\/track\/).+(?=\?)/
         # make a query to Spotify fot track obj
         id = link.match(reg)
 
-        token = get_spotify_token
 
         track = call_spotify_api_id(token, id)
 
@@ -98,14 +99,21 @@ module CreateMethods
         artist_reg = app == "net_ease" ? /(?<=分享).+(?=的单曲)/ : /\A.+(?=《)/
         name = link.match(name_reg)
         artist = link.match(artist_reg)
-        search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
+        search_query = CGI.escape("#{name} #{artist}".gsub(/[^\x00-\x7F]/, ""))
+        track = call_spotify_api_search(token, search_query)
+        create_song_from_spotify_track(track, user)
+      end
+    end
 
-        # get artist and title
-        # make queries to NetEase and QQ in order to get their objects
-        # create a song with title, artist and album
-        # create 3 song_detail instances (song: @song, app: {application}, url and hash_info with respective info)
-        # create history (user: current_user, song: @song)
-        # make up a msg based on the links (instance method of song)
+    def update_count(song, user)
+      history = History.find_by(song: song, user: user)
+      if history
+        # puts "IF TRUE"
+        history.share_count += 1
+        history.save
+      else
+        # puts "IF FALSE"
+        history = History.create!(song: song, user: user)
       end
     end
   end
