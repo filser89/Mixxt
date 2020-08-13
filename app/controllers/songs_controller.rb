@@ -25,7 +25,9 @@ class SongsController < ApplicationController
     else
     # if NO:
       p "This song is not in the database"
-      Song.create_new_song(link, app, current_user)
+      song = Song.create_new_song(link, app, current_user)
+      @msg = song.generate_msg
+      p msg
     end
 
 
