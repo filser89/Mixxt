@@ -2,7 +2,7 @@ class Song < ApplicationRecord
   # include ApiCall
 
   has_many :song_details, dependent: :destroy
-  has_many :histories
+  has_many :histories, dependent: :destroy
 
   def generate_msg
     {
