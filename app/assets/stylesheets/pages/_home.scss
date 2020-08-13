@@ -45,4 +45,78 @@ textarea {
 .link {
   margin-top: 20px;
   margin-right: 20px;
+=======
+#waves {
+  position: absolute;
+  width: 378px;
+  height: 102px;
+  left: 16px;
+  top: 355px;
+  opacity: 0.51;
+}
+
+#disc {
+  position: absolute;
+  width: 265px;
+  height: 264.16px;
+  left: 74px;
+  top: 270.92px;
+  box-shadow: inset 100px 100px 100px rgba(43, 21, 12, 0.1);
+}
+
+#disc:click {
+  animation: rotate('720deg');
+}
+
+#mixxtbtn {
+  position: absolute;
+  width: 101px;
+  height: 104px;
+  left: 86px;
+  top: 182px;
+  border-radius: 50%;
+  background: #EB7100;
+  z-index: 2;
+  color: white;
+}
+a{
+  color: white;
+}
+.container-form {
+  position: absolute;
+  width: 274px;
+  height: 48px;
+  top: 169px;
+
+  font-family: Playfair-Display;
+
+  font-size: 24px;
+  line-height: 32px;
+
+  color: white;
+  box-sizing: border-box;
+  border-bottom-style: double;
+}
+body {
+  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+  width: 414px;
+  height: 896px;
+  display: center;
+}
+
+textarea {
+  box-shadow: none;
+  border: none;
+  height: 3rem;
+  text-align: center;
+  font-size: 24px;
+  background: transparent;
+  color: white;
+  text: bold;
+}
+
+textarea:focus {
+  box-shadow: none;
+  border: none;
 }

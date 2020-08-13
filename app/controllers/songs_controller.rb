@@ -3,7 +3,6 @@ class SongsController < ApplicationController
 
   def home
     @song = Song.new
-
   end
 
   def create
@@ -12,17 +11,23 @@ class SongsController < ApplicationController
     link = params[:link]
 
     # understand what app it belongs to
-    app = check_user_app(link)
+    app = Song.check_user_app(link)
     # extract url from link
-    url = extract_url(link, app)
+    url = Song.extract_url(link, app)
     # check if it is in the DB
-    song_detail = SongDetail.where("url=? AND app=?", url, app)
-    p song_detail
+    song_detail = SongDetail.where("url=? AND app=?", url, app)[0]
     # if YES:
-
-    # generate message
-
+    if song_detail
+      song = Song.find(song_detail.song_id)
+      # generate message
+      @msg = song.generate_msg
+      p @msg
+    else
     # if NO:
+      p "This song is not in the database"
+      Song.create_new_song(link, app, current_user)
+    end
+
 
     # check what is app link belongs to
 
@@ -74,27 +79,4 @@ class SongsController < ApplicationController
 
   private
 
-  def check_user_app(link)
-    if /https:\/\/c.y.qq.com/.match?(link)
-      app = "qq"
-    elsif /https:\/\/y.music.163.com/.match?(link)
-      app = "net_ease"
-    elsif /https:\/\/open.spotify.com/.match?(link)
-      app = "spotify"
-    end
-    app
   end
-
-  def extract_url(link, app)
-    if app == "spotify"
-      url = link
-    elsif app == "qq"
-      reg = /https:\/\/c.y.qq.com\/base\/fcgi-bin\/u\?__=\w+/
-      url = link.match(reg).to_s
-    elsif app == "net_ease"
-      reg = /https:\/\/y.music.163.com\/.\/song\/\d+/
-      url = link.match(reg).to_s
-    end
-    url
-  end
-end
