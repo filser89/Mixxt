@@ -1,6 +1,6 @@
 module CreateMethods
   extend ActiveSupport::Concern
-  def self.included base
+  def self.included(base)
     base.extend ClassMethods
   end
 
@@ -18,7 +18,8 @@ module CreateMethods
 
     def extract_url(link, app)
       if app == "spotify"
-        url = link
+        reg = /\Ahttps:\/\/open.spotify.com\/track\/.+(?=\?)/
+        url = link.match(reg)
 
       elsif app == "net_ease"
         name_reg = /(?<=《).+(?=》)/
@@ -45,7 +46,7 @@ module CreateMethods
       url
     end
 
-    def create_song_from_spotify_track(track)
+    def create_song_from_spotify_track(track, user)
       name = track["name"]
       album = track["album"]["name"]
       artist = track["artists"][0]["name"]
@@ -72,13 +73,13 @@ module CreateMethods
       SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
       p "qq_url: #{qq_url}"
 
-      History.create!(song: song, user: current_user) if user_signed_in?
+      History.create!(song: song, user: user) unless user.nil?
 
       p "Created #{name} by #{artist}"
       p "================================================="
     end
 
-    def create_new_song(link, app)
+    def create_new_song(link, app, user)
       # if Spotify
       if app == "spotify"
         # regex to cut out the id
@@ -90,8 +91,14 @@ module CreateMethods
 
         track = call_spotify_api_id(token, id)
 
-        create_song_from_spotify_track(track)
+        create_song_from_spotify_track(track, user)
 
+      elsif ["net_ease", "qq"].include?(app)
+        name_reg = app == "net_ease" ? /(?<=《).+(?=》)/ : /(?<=《).+(?=》)/
+        artist_reg = app == "net_ease" ? /(?<=分享).+(?=的单曲)/ : /\A.+(?=《)/
+        name = link.match(name_reg)
+        artist = link.match(artist_reg)
+        search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
 
         # get artist and title
         # make queries to NetEase and QQ in order to get their objects
