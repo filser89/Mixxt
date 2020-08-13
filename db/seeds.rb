@@ -29,7 +29,7 @@ def get_spotify_token
   data["access_token"]
 end
 
-def call_spotify_api_id(token)
+def call_spotify_api_ids(token)
 
   ids = "6U68kAjrSFBNjsq6oQIMWJ,6uBhi9gBXWjanegOb2Phh0,2P4wRFA7ftewX1JdN3On2K,55n9yjI6qqXh5F2mYvUc2y,1I8tHoNBFTuoJAlh4hfVVE,0Zbbxnx4SGGHoIow4PpISP,5masKPHeAOVNgxdLebIcK7,0L6UCE1Y0KX3MF2AtxlntI,1wdcCXAOwIu8JotxdVRV82,27NV2KxoQ8WuLMqlTDI61F"
 
@@ -80,7 +80,7 @@ end
 # # Below is actual code
 user = User.create!(email: "user@gmail.com", password: "123456")
 
-tracks = call_spotify_api_id(get_spotify_token)
+tracks = call_spotify_api_ids(get_spotify_token)
 
 tracks.each do |track|
   name = track["name"]
