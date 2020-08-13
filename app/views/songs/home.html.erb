@@ -8,13 +8,13 @@
       <form action="/songs" method="post">
         <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
         <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>
-        <input type="submit" value="Mixxt" id="mixxtbtn" onclick="rotateAnimation('mixxtbtn',1);rotateAnimation('disc',1)">
+        <input type="submit" value="Mixxt" id="mixxtbtn" onclick="rotateAnimation('disc',1)">
       </form>
     </div>
    </div>
       <%= image_tag "waves.png", id: 'waves'%>
       <%= image_tag "disc.png", id: 'disc' %>
-
+<button class="glow-on-hover" type="button">HOVER ME, THEN CLICK ME!</button>
   <div class="navbar">
     <%= image_tag "mixoff.png", class: 'nav-icon' %>
     <%= image_tag "historyoff.png", class: 'nav-icon' %>
