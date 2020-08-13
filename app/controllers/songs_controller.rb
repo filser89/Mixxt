@@ -29,7 +29,7 @@ class SongsController < ApplicationController
       p "This song is not in the database"
       song = Song.create_new_song(link, app, user)
       @msg = song.generate_msg
-      p msg
+      p @msg
     end
 
     # check what is app link belongs to
