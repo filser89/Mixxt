@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :create, :display_global ]
+  skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg]
 
   def home
     # @song = Song.new
@@ -89,13 +89,13 @@ class SongsController < ApplicationController
   end
 
   def display_favorites
-    @user = current_user
-    @user.histories.order(:share_count => :desc)
+    @user = current_user if user_signed_in?
+    @user.histories.order(:share_count => :desc) if user_signed_in?
   end
 
   def display_history
-    @user = current_user
-    @songs = @user.songs
+    @user = current_user if user_signed_in?
+    @songs = @user.songs if user_signed_in?
   end
 
   private
