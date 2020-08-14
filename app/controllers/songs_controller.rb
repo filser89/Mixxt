@@ -2,14 +2,28 @@ class SongsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :create, :display_global ]
 
   def home
+    # @song = Song.new
+    # create if params[:link].present?
+    @histories = display_history
+    @globals = display_global
+    @favorites = display_favorites
+    # raise
+  end
+
+  def fetch_msg
     @song = Song.new
-    display_history
+    @msg = create if params[:link].present?
+    puts "MESSAGE #{@msg}"
+    render json: {msg: @msg}
   end
 
   def create
     # receive the link
+    puts "inside create"
     user = current_user
+    puts "PARAMS LINK _______ #{params[:link]}"
     link = params[:link]
+
 
     # understand what app it belongs to
     app = Song.check_user_app(link)
@@ -19,20 +33,22 @@ class SongsController < ApplicationController
     song_detail = SongDetail.where("url=? AND app=?", url, app)[0]
     # if YES:
     if song_detail
-      song = Song.find(song_detail.song_id)
+      @song = Song.find(song_detail.song_id)
       # generate message
-      Song.update_count(song, user)
-      p song
-      @msg = song.generate_msg
-      p @msg
+      Song.update_count(@song, user)
+      p @song
+      @msg = @song.generate_msg
+      # puts "@msg #{@msg}"
     else
     # if NO:
       p "This song is not in the database"
-      song = Song.create_new_song(link, app, user)
-      @msg = song.generate_msg
-      p @msg
+      @song = Song.create_new_song(link, app, user)
+      @msg = @song.generate_msg
+      @msg
+      # puts "@msg #{@msg}"
     end
-
+    puts "msg #{@msg}"
+    @msg
     # check what is app link belongs to
 
     # if Spotify
@@ -69,12 +85,12 @@ class SongsController < ApplicationController
   end
 
   def display_global
-    @songs = Song.all
+    Song.all # add later
   end
 
   def display_favorites
-    @user = User.first
-    @histories = @user.histories.order(:share_count => :desc)
+    @user = current_user
+    @user.histories.order(:share_count => :desc)
   end
 
   def display_history
@@ -84,4 +100,4 @@ class SongsController < ApplicationController
 
   private
 
-  end
+end
