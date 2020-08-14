@@ -78,7 +78,7 @@ class SongsController < ApplicationController
   end
 
   def display_history
-    @user = User.first
+    @user = current_user
     @songs = @user.songs
   end
 

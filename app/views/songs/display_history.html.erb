@@ -6,14 +6,19 @@
   </div>
   <div class="cards">
     <% @songs.each do |song| %>
-      <div class="card-container">
+      <div class="card-container col-lg-12">
         <%= image_tag song.cover_image_url, class: 'cover-image' %>
         <div class="card-container-infos">
           <h2><%= song.name %></h2>
           <p><%= song.artist %></p>
           <p><%= song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
         </div>
-        <button class="btn-blue">Share</button>
+        <form action="/songs" method="post">
+          <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="hidden" name="link" id="link" value="<% song.song_details[0].url %>">
+          <%#= song.name %> <%#= song.artist %> <%#= song.song_details[1].url %>
+          <button class="btn-blue">Share</button>
+        </form>
       </div>
     <% end %>
   </div>
@@ -39,3 +44,12 @@
     prevScrollPos = currentScrollPos;
   })
 </script>
+
+    <!-- <form action="/songs" method="post">
+      <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>
+
+      <div class="disc-wave">
+        <button value="Mixxt" type="submit" class="glow-on-hover" onclick="rotateAnimation('disc',1)" ></button>
+      </div>
+    </form> -->
