@@ -73,7 +73,8 @@ class SongsController < ApplicationController
   end
 
   def display_favorites
-
+    @user = User.first
+    @histories = @user.histories.order(:share_count => :desc)
   end
 
   def display_history

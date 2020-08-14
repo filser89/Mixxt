@@ -1,0 +1,21 @@
+<div class="container-self">
+  <div class="header">
+    <%= image_tag 'settingsoff.png', class: 'nav-icon' %>
+    <p class="header-title">History</p>
+    <%= image_tag 'deleteoff.png', class: 'nav-icon' %>
+  </div>
+  <div class="cards">
+    <% @histories.each do |history| %>
+      <%= history.song.name %>
+      <%= history.song.artist %>
+      <%= history.share_count %>
+      <br>
+    <% end %>
+  </div>
+  <div class="navbar">
+    <%= image_tag 'mixoff.png', class: 'nav-icon' %>
+    <%= image_tag 'historyoff.png', class: 'nav-icon' %>
+    <%= image_tag 'favoritesoff.png', class: 'nav-icon' %>
+    <%= image_tag 'globaloff.png', class: 'nav-icon' %>
+  </div>
+</div>
