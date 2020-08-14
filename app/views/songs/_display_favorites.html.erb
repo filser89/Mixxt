@@ -4,6 +4,9 @@
     <p class="header-title">History</p>
     <%= image_tag 'deleteoff.png', class: 'nav-icon' %>
   </div>
+  <% if user_signed_in? %>
+
+
   <div class="cards">
     <% @histories.each do |history| %>
       <%= history.song.name %>
@@ -12,10 +15,8 @@
       <br>
     <% end %>
   </div>
-  <div class="navbar">
-    <%= image_tag 'mixoff.png', class: 'nav-icon' %>
-    <%= image_tag 'historyoff.png', class: 'nav-icon' %>
-    <%= image_tag 'favoritesoff.png', class: 'nav-icon' %>
-    <%= image_tag 'globaloff.png', class: 'nav-icon' %>
-  </div>
+  <% else %>
+  <p>Please log in to see your favorites.</p>
+   <% end %>
+
 </div>

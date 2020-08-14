@@ -4,6 +4,9 @@
     <p class="header-title">History</p>
     <%= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
   </div>
+  <% if user_signed_in? %>
+
+
   <div class="cards">
     <% @songs.each do |song| %>
       <div class="card-container col-lg-12">
@@ -22,12 +25,9 @@
       </div>
     <% end %>
   </div>
-  <div class="navbar">
-    <%= link_to image_tag('mixoff.png', class: 'nav-icon'), root_path %>
-    <%= image_tag 'historyoff.png', class: 'nav-icon current' %>
-    <%= image_tag 'favoritesoff.png', class: 'nav-icon' %>
-    <%= image_tag 'globaloff.png', class: 'nav-icon' %>
-  </div>
+<% else %>
+<p>Please log in to see your histories</p>
+<% end %>
 </div>
 <script>
   const header = document.querySelector('.header');
