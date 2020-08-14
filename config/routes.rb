@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   resources :songs, only: [:create]
+  get 'fetch_msg', to: 'songs#fetch_msg'
   get 'global', to: 'songs#display_global'
   get 'favorites', to: 'songs#display_favorites'
   get 'history', to: 'songs#display_history'

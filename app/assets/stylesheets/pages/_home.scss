@@ -75,11 +75,8 @@ textarea {
 
 #disc {
   position: absolute;
-  width: 265px;
-  height: 264.16px;
-  // left: 74px;
-  // top: 270.92px;
-  box-shadow: inset 100px 100px 100px rgba(43, 21, 12, 0.1);
+  width: 10em;
+  height: 10em;
   background:transparent;
 }
 
@@ -129,7 +126,7 @@ textarea {
     width: calc(100% + 8px);
     height: calc(100% + 8px);
     animation: glowing 20s linear;
-    animation-duration: 3s;
+    animation-duration: 5s;
     opacity: 0;
     transition: opacity 2s ease-in-out;
 }
@@ -197,7 +194,7 @@ textarea {
   text: bold;
   border-bottom-style: double;
   width: 75%;
-  margin: 3rem auto;
+  margin: 2rem auto;
 }
 
 
