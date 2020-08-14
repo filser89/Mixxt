@@ -37,7 +37,7 @@ textarea {
   padding-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: right;
   justify-content: flex-end;
   background: rgba(196, 196, 196, 0.2);
 }
@@ -45,6 +45,7 @@ textarea {
 .link {
   margin-top: 20px;
   margin-right: 20px;
+  text: white;
 }
 
 #waves {
