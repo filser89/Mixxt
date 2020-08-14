@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :create, :display_global ]
+  skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg]
 
   def home
     # @song = Song.new
