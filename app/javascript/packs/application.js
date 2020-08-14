@@ -10,6 +10,7 @@ require("channels")
 require("custom/disc")
 
 
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -33,3 +34,51 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
 });
+// custom code
+
+
+// Select elements
+
+  const views = document.querySelectorAll(".views_container")
+  const btns = document.querySelectorAll(".nav-icon")
+
+// Callback function
+
+
+  const toggleShown = (e) => {
+    // e.preventDefault()
+
+    const shown = document.querySelector(".views_container.shown")
+    console.log(shown)
+    const divToShow = document.querySelector(`.${e.target.dataset.view}`)
+    console.log(divToShow)
+    shown.classList.toggle("shown")
+    divToShow.classList.toggle("shown")
+
+}
+
+
+//  Event listener
+
+btns.forEach(btn => btn.addEventListener("click", toggleShown))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
