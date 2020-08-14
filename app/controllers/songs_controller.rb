@@ -89,13 +89,13 @@ class SongsController < ApplicationController
   end
 
   def display_favorites
-    @user = User.first # should be changed to current_user
+    @user = current_user
     @user.histories.order(:share_count => :desc)
   end
 
   def display_history
-    @user = User.first # should be changed to
-    @user.songs
+    @user = current_user
+    @songs = @user.songs
   end
 
   private
