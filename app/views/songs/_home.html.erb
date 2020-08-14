@@ -1,0 +1,136 @@
+<div class="header">
+  <div class="link">
+    <%= link_to 'Log in' %>
+  </div>
+</div>
+<div class="page-container">
+  <div class="container-form">
+    <!-- <form action="/songs" method="post"> -->
+      <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>
+
+      <div class="disc-wave">
+        <button value="Mixxt" class="glow-on-hover" id="mixxtbtn"></button>
+        <%= image_tag "waves.png", id: 'waves'%>
+        <%= image_tag "disc.png", id: 'disc' %>
+      </div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-secondary" id="exampleModalLongTitle">Your link has been generated</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-muted" id="msg">
+        not showing
+         <%= @msg %>
+         <%#= @song %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">I've got the link!</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- </form> -->
+<!--       <div class="carousel-item">
+      <%#= image_tag @song.cover_image_url, class: 'cover-image' %>
+      <div class="carousel-caption d-none d-md-block">
+        <h2><%#= @song.name %></h2>
+        <p><%#= @song.artist %></p>
+        <p><%#= @song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+
+
+<script>
+    // var looper;
+    var degrees = 0;
+    // fetch /fetch-msg, pass param link
+    // get a response
+    // parse the data
+    // data.msg
+    // pass msg to popup
+    const mixxtbtn= document.querySelector("#mixxtbtn")
+
+
+     function rotateAnimation(el,speed) {
+      var elem = document.getElementById(el);
+      elem.style.zIndex = 10
+
+      if(navigator.userAgent.match("Chrome")){
+        elem.style.WebkitTransform = "rotate("+degrees+"deg)";
+      } else if(navigator.userAgent.match("Firefox")){
+        elem.style.MozTransform = "rotate("+degrees+"deg)";
+      } else if(navigator.userAgent.match("MSIE")){
+        elem.style.msTransform = "rotate("+degrees+"deg)";
+      } else if(navigator.userAgent.match("Opera")){
+        elem.style.OTransform = "rotate("+degrees+"deg)";
+      } else {
+        elem.style.transform = "rotate("+degrees+"deg)";
+      }
+      if (degrees < 360) {
+        setTimeout('rotateAnimation(\''+el+'\','+speed+')',1)
+        degrees+=1;
+        document.querySelector('.glow-on-hover').style.opacity = 0.8
+        console.log()
+        // console.log(popup)
+
+      } else {
+        degrees = 0
+        elem.style.zIndex = 0
+        document.querySelector('.glow-on-hover').style.opacity = 0
+        if(navigator.userAgent.match("Chrome")){
+          elem.style.WebkitTransform = "rotate(0deg)";
+        } else if(navigator.userAgent.match("Firefox")){
+          elem.style.MozTransform = "rotate(0deg)";
+        } else if(navigator.userAgent.match("MSIE")){
+          elem.style.msTransform = "rotate(0deg)";
+        } else if(navigator.userAgent.match("Opera")){
+          elem.style.OTransform = "rotate(0deg)";
+        } else {
+          elem.style.transform = "rotate(0deg)";
+        }
+      }
+
+      return degrees
+    }
+
+    const generateMessage = (message) =>{
+      return `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music = ${message.qq}`
+    }
+
+    function popup (msg) {
+      let link = document.querySelector("#link").value
+      fetch(`fetch_msg?link=${link}`)
+        .then(response => response.json())
+        .then(data => {
+          var modal = document.querySelector('#exampleModalCenter')
+          modal.classList.add('show')
+          modal.style.display = 'block'
+          const message = data.msg
+          console.log(message)
+          document.querySelector('#msg').innerHTML = generateMessage(message)
+      });
+      // getElementById 'msg'
+      // inject innerHTML with var msg
+
+    }
+
+    const clickFunc = () => {
+      rotateAnimation('disc',1)
+      setTimeout(popup (msg),2000)
+      popup (msg)
+    }
+
+    mixxtbtn.addEventListener("click", clickFunc
+  )
+  </script>
+
