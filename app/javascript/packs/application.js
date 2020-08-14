@@ -56,13 +56,24 @@ document.addEventListener('turbolinks:load', () => {
     divToShow.classList.toggle("shown")
 
 }
-
+  // const active = (e) => {
+  //   const btns = document.querySelectorAll('.nav-icon');
+  //   console.log(btns)
+  //   const btnsArray = Array.from(btns)
+  //   console.log(btnsArray)
+  //   if (btnsArray.includes('img.nav-icon.current')) {
+  //     const index = btnsArray.indexOf('img.nav-icon.current');
+  //     console.log(index)
+  //     e.btns[index].classList.remove('current')
+  //   } else {
+  //       e.currentTarget.classList.add('current')
+  //   }
+  // }
 
 //  Event listener
 
 btns.forEach(btn => btn.addEventListener("click", toggleShown))
-
-
+// btns.forEach(btn => btn.addEventListener('click', active))
 
 
 
