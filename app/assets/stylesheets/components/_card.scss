@@ -1,0 +1,44 @@
+.cards {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 70px;
+}
+.cover-image {
+  width: 100px;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.header-title {
+  margin: 0;
+}
+
+.card-container {
+  overflow: hidden;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  position: relative;
+  padding: 0px;
+}
+
+.card-container .card-container-infos {
+  padding: 16px;
+}
+
+.card-container h2 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  color: white;
+}
+
+.card-container p {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+  color: white;
+}
