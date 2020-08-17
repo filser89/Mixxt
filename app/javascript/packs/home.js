@@ -107,6 +107,18 @@
 
     mixxtbtn.addEventListener("click", clickFunc)
 
+    document.querySelector('#copy').addEventListener("click", () => {
+          var modal = document.querySelector('#exampleModalCenter')
+          modal.classList.remove('show')
+          modal.style.display = 'none'
+    })
+
+    document.querySelector('.close').addEventListener("click", () => {
+          var modal = document.querySelector('#exampleModalCenter')
+          modal.classList.remove('show')
+          modal.style.display = 'none'
+    })
+
 const icons = document.querySelectorAll('.nav-icon');
 
 function deselect (icon) {
