@@ -8,17 +8,17 @@
 
 
   <div class="cards">
-    <% @songs.each do |song| %>
+    <% @histories.each do |history| %>
       <div class="card-container col-lg-12">
-        <%= image_tag song.cover_image_url, class: 'cover-image' %>
+        <%= image_tag history.song.cover_image_url, class: 'cover-image' %>
         <div class="card-container-infos">
-          <h2><%= song.name %></h2>
-          <p><%= song.artist %></p>
-          <p><%= song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
+          <h2><%= history.song.name %></h2>
+          <p><%= history.song.artist %></p>
+          <p><%= history.song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
         </div>
         <form action="/songs" method="post">
           <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
-          <input type="hidden" name="link" id="link" value="<% song.song_details[0].url %>">
+          <input type="hidden" name="link" id="link" value="<% history.song.song_details[0].url %>">
           <%#= song.name %> <%#= song.artist %> <%#= song.song_details[1].url %>
           <button class="btn-blue">Share</button>
         </form>
