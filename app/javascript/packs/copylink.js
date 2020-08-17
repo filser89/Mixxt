@@ -1,6 +1,6 @@
-  let copyBtn = document.getElementById('copy');
-console.log("copied")
-  copyBtn.addEventListener('click', ()=> copyText("msg"));
+//   let copyBtn = document.getElementById('copy');
+// console.log("copied")
+//   copyBtn.addEventListener('click', ()=> copyText("msg"));
 
   function copyText(ev){
     console.log("hi");
