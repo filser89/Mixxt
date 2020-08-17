@@ -74,8 +74,8 @@ import $ from 'jquery';
 
     const clickFunc = () => {
       rotateAnimation('disc',1)
-      setTimeout(popup (msg),2000)
-      popup (msg)
+      setTimeout(popup(msg),2000)
+
     }
 
     mixxtbtn.addEventListener("click", clickFunc
