@@ -52,7 +52,7 @@
     }
 
     const generateMessage = (message) =>{
-      return `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music = ${message.qq}`
+      return `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}`
     }
     function linkvalid (link) {
       if (link.match(/https:\/\/c.y.qq.com/)===null && link.match(/https:\/\/y.music.163.com/)===null && link.match(/https:\/\/open.spotify.com/)===null) {
@@ -123,37 +123,4 @@ icons.forEach((icon) => {
 });
 
 
-    function myFunction() {
-      /* Get the text field */
-      var copyText = document.getElementById("msg").innerText;
-
-      /* Select the text field */
-      // copyText.select();
-      // copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-      /* Copy the text inside the text field */
-      document.execCommand("copy");
-
-      /* Alert the copied text */
-      alert("Copied the text: " + copyText.value);
-    }
-
-    let copyBtn = document.getElementById('copy');
-
-    copyBtn.addEventListener('click', copyText);
-
-    function copyText(ev){
-      console.log("hi");
-      let div = document.getElementById('msg');
-      let text = div.innerText;
-      let textArea  = document.createElement('textarea');
-      textArea.width  = "1px";
-      textArea.height = "1px";
-      textArea.background =  "transparents" ;
-      textArea.value = text;
-      document.body.append(textArea);
-      textArea.select();
-      document.execCommand('copy');   //No i18n
-      document.body.removeChild(textArea);
-    }
 
