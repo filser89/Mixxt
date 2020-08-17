@@ -78,7 +78,21 @@ import $ from 'jquery';
       popup (msg)
     }
 
-    mixxtbtn.addEventListener("click", clickFunc
-  )
+    mixxtbtn.addEventListener("click", clickFunc)
+
+const icons = document.querySelectorAll('.nav-icon');
+
+function deselect (icon) {
+  icon.classList.remove('active')
+}
+
+function selectThis () {
+  icons.forEach(deselect)
+  this.classList.add('active')
+}
+
+icons.forEach((icon) => {
+  icon.addEventListener('click', selectThis)
+});
 
 
