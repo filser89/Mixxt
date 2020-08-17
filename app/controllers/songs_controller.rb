@@ -32,7 +32,10 @@ class SongsController < ApplicationController
     # check if it is in the DB
     song_detail = SongDetail.where("url=? AND app=?", url, app)[0]
     # if YES:
-    if song_detail
+    if link.nil?
+      @msg = "Please paste a valid link"
+      p "no link pasted"
+    elsif song_detail
       @song = Song.find(song_detail.song_id)
       # generate message
       Song.update_count(@song, user)

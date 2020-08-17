@@ -1,4 +1,4 @@
-import $ from 'jquery';
+
     // var looper;
     var degrees = 0;
     // fetch /fetch-msg, pass param link
@@ -54,19 +54,46 @@ import $ from 'jquery';
     const generateMessage = (message) =>{
       return `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music = ${message.qq}`
     }
+    function linkvalid (link) {
+      if (link.match(/https:\/\/c.y.qq.com/)===null && link.match(/https:\/\/y.music.163.com/)===null && link.match(/https:\/\/open.spotify.com/)===null) {
+        return false
+      }
+      else {
+        return true
+      }
+    }
+
+    function displaymessage() {
+      var modal = document.querySelector('#exampleModalCenter')
+      modal.classList.add('show')
+      modal.style.display ='block'
+    }
 
     function popup (msg) {
       let link = document.querySelector("#link").value
+      if (link===""){
+        displaymessage()
+        document.querySelector('#msg').innerHTML = 'Please drop your link above!'
+      }
+      else if (linkvalid(link)===false) {
+        console.log(linkvalid(link))
+        displaymessage()
+        document.querySelector('#msg').innerHTML = 'Oops, we do not recognise your link!'
+      }
+      else {
       fetch(`fetch_msg?link=${link}`)
         .then(response => response.json())
         .then(data => {
+          console.log(data)
           var modal = document.querySelector('#exampleModalCenter')
           modal.classList.add('show')
           modal.style.display = 'block'
+          document.querySelector('#exampleModalLongTitle').innerHTML = 'Your link has been generated'
           const message = data.msg
-          console.log(message)
           document.querySelector('#msg').innerHTML = generateMessage(message)
       });
+
+      }
       // getElementById 'msg'
       // inject innerHTML with var msg
 
@@ -95,4 +122,38 @@ icons.forEach((icon) => {
   icon.addEventListener('click', selectThis)
 });
 
+
+    function myFunction() {
+      /* Get the text field */
+      var copyText = document.getElementById("msg").innerText;
+
+      /* Select the text field */
+      // copyText.select();
+      // copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+
+      /* Alert the copied text */
+      alert("Copied the text: " + copyText.value);
+    }
+
+    let copyBtn = document.getElementById('copy');
+
+    copyBtn.addEventListener('click', copyText);
+
+    function copyText(ev){
+      console.log("hi");
+      let div = document.getElementById('msg');
+      let text = div.innerText;
+      let textArea  = document.createElement('textarea');
+      textArea.width  = "1px";
+      textArea.height = "1px";
+      textArea.background =  "transparents" ;
+      textArea.value = text;
+      document.body.append(textArea);
+      textArea.select();
+      document.execCommand('copy');   //No i18n
+      document.body.removeChild(textArea);
+    }
 
