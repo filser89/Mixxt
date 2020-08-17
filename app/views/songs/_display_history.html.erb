@@ -16,7 +16,7 @@
           <p><%= history.song.artist %></p>
           <p><%= history.song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
         </div>
-        <form action="/songs" method="post">
+        <form class="frm-btn" action="/songs" method="post">
           <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
           <input type="hidden" name="link" id="link" value="<% history.song.song_details[0].url %>">
           <%#= song.name %> <%#= song.artist %> <%#= song.song_details[1].url %>
