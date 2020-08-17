@@ -16,12 +16,7 @@
           <p><%= history.song.artist %></p>
           <p><%= history.song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
         </div>
-        <form class="frm-btn" action="/songs" method="post">
-          <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
-          <input type="hidden" name="link" id="link" value="<% history.song.song_details[0].url %>">
-          <%#= song.name %> <%#= song.artist %> <%#= song.song_details[1].url %>
-          <button class="btn-blue">Share</button>
-        </form>
+          <button type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
       </div>
     <% end %>
   </div>
@@ -43,6 +38,30 @@
     }
     prevScrollPos = currentScrollPos;
   })
+
+  function shareLink(e) {
+    const song_id = e.target.dataset.song_id
+    fetch(`share_from_btn?song_id=${song_id}`)
+          .then(response => response.json())
+          .then(data => {
+              const message = data.msg
+              console.log(message)
+              let textArea  = document.createElement('textarea');
+              textArea.width  = "1px";
+              textArea.height = "1px";
+              textArea.background =  "transparents" ;
+              textArea.value = `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}`
+              document.body.append(textArea);
+              textArea.select();
+              document.execCommand('copy');   //No i18n
+              document.body.removeChild(textArea);
+        });
+
+  }
+
+  const sharebuttons = document.querySelectorAll(".btn-blue")
+  sharebuttons.forEach(btn => btn.addEventListener("click", shareLink));
+
 </script>
 
     <!-- <form action="/songs" method="post">
