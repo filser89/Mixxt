@@ -12,7 +12,7 @@ module ApiCall
       res = RestClient.get(url)
       data = JSON.parse(res) ? JSON.parse(res) : JSON.parse(res.gsub()-1)
 
-      data["result"]["songs"][0]["id"]
+      data["result"]["songs"][0]
     end
 
     def call_qq_api_search(search_query)
@@ -24,7 +24,7 @@ module ApiCall
 
 
       data = JSON.parse(res)
-      data["data"]["song"]
+      data["data"]["song"]["list"][0]
     end
     def get_spotify_token
       url = "https://accounts.spotify.com/api/token"

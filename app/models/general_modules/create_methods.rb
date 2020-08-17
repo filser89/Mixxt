@@ -22,13 +22,14 @@ module CreateMethods
         url = link.match(reg).to_s
 
       elsif app == "net_ease"
-        name_reg = /(?<=《).+(?=》)/
-        name = link.match(name_reg).to_s
-        artist_reg = /(?<=分享).+(?=的单曲)/
-        artist = link.match(artist_reg).to_s
-        search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
+        # name_reg = /(?<=《).+(?=》)/
+        # name = link.match(name_reg).to_s
+        # artist_reg = /(?<=分享).+(?=的单曲)/
+        # artist = link.match(artist_reg).to_s
+        # search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
         # p search_query
-        net_ease_id = call_net_ease_api_search(search_query)
+        id_reg = /(?<=https:\/\/y.music.163.com\/m\/song\/).+(?=\/)/
+        net_ease_id = link.match(id_reg).to_s
 
         url = "https://y.music.163.com/m/song/#{net_ease_id}"
 
@@ -39,21 +40,42 @@ module CreateMethods
         artist = link.match(artist_reg).to_s
         search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
         qq_hash = call_qq_api_search(search_query)
-        qq_id = qq_hash["list"][0]["songid"]
+        puts "QQ HASH #{qq_hash}"
+        qq_id = qq_hash["songid"]
         url = "http://y.qq.com/#type=song&id=#{qq_id}"
         # p url
       end
       url
     end
 
+    def name_to_s(name)
+      reg = /\(feat.+\)/
+      name.gsub(reg, "")
+    end
+
+    def artists_arr_to_s(artists)
+      artists_str = ""
+      artists.each do |artist|
+      artists_str += "#{artist["name"]}, "
+      end
+      n = artists_str.size
+      artists_str[0..n - 3]
+    end
+
+
+    def generate_search_query(name, artist, album)
+      str = "#{name} #{artist.gsub(",","")} #{album == name ? '' : album}".gsub(/[^\x00-\x7F]/, "")
+      CGI.escape(str)
+    end
+
     def create_song_from_spotify_track(track, user)
-      name = track["name"]
+      name = name_to_s(track["name"])
       album = track["album"]["name"]
-      artist = track["artists"][0]["name"]
+      artist = artists_arr_to_s(track["artists"])
       cover_image_url = track["album"]["images"][1]["url"]
 
       song = Song.create!(name: name, album: album, artist: artist, cover_image_url: cover_image_url)
-      search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
+      search_query = generate_search_query(name, artist, album)
       p "Creating #{name} by #{artist}"
 
       spotify_hash = track
@@ -61,19 +83,96 @@ module CreateMethods
       SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
       p "spotify_url: #{spotify_url}"
 
-      net_ease_id = call_net_ease_api_search(search_query)
-      net_ease_hash = call_net_ease_api_id(net_ease_id)
+      net_ease_hash = call_net_ease_api_search(search_query)
+      net_ease_id = net_ease_hash["id"]
       net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
       SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
       p "net_ease_url: #{net_ease_url}"
 
       qq_hash = call_qq_api_search(search_query)
-      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["list"][0]["songid"]}"
+      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
 
       SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
       p "qq_url: #{qq_url}"
 
-      History.create!(song: song, user: user) unless user.nil?
+      History.create!(song: song, user: user)
+
+      p "Created #{name} by #{artist}"
+      p "================================================="
+      song
+    end
+
+    def create_song_from_net_ease_track(track, user, net_ease_id)
+      puts "WE ARE IN CREATE FROM NET_EASE"
+      # name, artist, album
+      name = name_to_s(track["name"])
+      album = track["album"]["name"]
+      artist = artists_arr_to_s(track["artists"])
+      # create song
+      song = Song.create!(name: name, album: album, artist: artist)
+      # search query
+      search_query = generate_search_query(name, artist, album)
+      p "Creating #{name} by #{artist}"
+      # SongDetail net_ease
+      net_ease_hash = track
+      net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
+      SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
+      p "net_ease_url: #{net_ease_url}"
+      # call spotify
+      token = get_spotify_token
+      spotify_hash = call_spotify_api_search(token, search_query)
+      spotify_url = spotify_hash["external_urls"]["spotify"]
+      # SongDetail spotify
+      SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
+      # Song.img_url
+      song.cover_image_url = spotify_hash["album"]["images"][1]["url"]
+      song.save
+      # call  qq
+      qq_hash = call_qq_api_search(search_query)
+      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
+
+      # SongDetailQQ
+      SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
+      p "qq_url: #{qq_url}"
+
+      # History
+      History.create!(song: song, user: user)
+
+      p "Created #{name} by #{artist}"
+      p "================================================="
+      song
+    end
+
+    def create_song_from_qq_track(track, user)
+      name = name_to_s(track["songname"])
+      artist = artists_arr_to_s(track["singer"])
+      album = track["albumname"]
+      song = Song.create!(name: name, album: album, artist: artist)
+      search_query = generate_search_query(name, artist, album)
+      p "Creating #{name} by #{artist}"
+
+      qq_hash = track
+      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
+      SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
+      p "qq_url: #{qq_url}"
+
+      # call spotify
+      token = get_spotify_token
+      spotify_hash = call_spotify_api_search(token, search_query)
+      spotify_url = spotify_hash["external_urls"]["spotify"]
+      # SongDetail spotify
+      SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
+      # Song.img_url
+      song.cover_image_url = spotify_hash["album"]["images"][1]["url"]
+      song.save
+
+      net_ease_hash = call_net_ease_api_search(search_query)
+      net_ease_id = net_ease_hash["id"]
+      net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
+      SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
+      p "net_ease_url: #{net_ease_url}"
+
+      History.create!(song: song, user: user)
 
       p "Created #{name} by #{artist}"
       p "================================================="
@@ -82,8 +181,9 @@ module CreateMethods
 
     def create_new_song(link, app, user)
       # if Spotify
-      token = get_spotify_token
+
       if app == "spotify"
+        token = get_spotify_token
         # regex to cut out the id
         p link
         # make a query to Spotify fot track obj
@@ -94,14 +194,24 @@ module CreateMethods
 
         create_song_from_spotify_track(track, user)
 
-      elsif ["net_ease", "qq"].include?(app)
-        name_reg = app == "net_ease" ? /(?<=《).+(?=》)/ : /(?<=《).+(?=》)/
-        artist_reg = app == "net_ease" ? /(?<=分享).+(?=的单曲)/ : /\A.+(?=《)/
-        name = link.match(name_reg).to_s
-        artist = link.match(artist_reg).to_s
+      elsif app == "net_ease"
+        id_reg =/(?<=https:\/\/y.music.163.com\/m\/song\/).+(?=\/)/
+        net_ease_id = link.match(id_reg).to_s
+
+        # # get the track
+        track = call_net_ease_api_search(net_ease_id)
+        # p track
+        create_song_from_net_ease_track(track, user, net_ease_id)
+
+      elsif app == "qq"
+        name_reg = /(?<=《).+(?=》)/
+        artist_reg = /\A.+(?=《)/
+        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z]+/, " ").gsub("Explicit","")
+        artist = link.match(artist_reg).to_s.gsub(/[^0-9a-zA-Z]+/, " ")
+        p "That's what we search for: #{name} #{artist}"
         search_query = CGI.escape("#{name} #{artist}".gsub(/[^\x00-\x7F]/, ""))
-        track = call_spotify_api_search(token, search_query)
-        create_song_from_spotify_track(track, user)
+        track = call_qq_api_search(search_query)
+        create_song_from_qq_track(track, user)
       end
     end
 
