@@ -108,9 +108,12 @@
     mixxtbtn.addEventListener("click", clickFunc)
 
     document.querySelector('#copy').addEventListener("click", () => {
+          copyText("msg")
+
           var modal = document.querySelector('#exampleModalCenter')
           modal.classList.remove('show')
           modal.style.display = 'none'
+
     })
 
     document.querySelector('.close').addEventListener("click", () => {
@@ -118,6 +121,21 @@
           modal.classList.remove('show')
           modal.style.display = 'none'
     })
+
+    function copyText(ev){
+      console.log("hi");
+      let div = document.getElementById(ev);
+      let text = div.innerText;
+      let textArea  = document.createElement('textarea');
+      textArea.width  = "1px";
+      textArea.height = "1px";
+      textArea.background =  "transparents" ;
+      textArea.value = text;
+      document.body.append(textArea);
+      textArea.select();
+      document.execCommand('copy');   //No i18n
+      document.body.removeChild(textArea);
+    }
 
 const icons = document.querySelectorAll('.nav-icon');
 
