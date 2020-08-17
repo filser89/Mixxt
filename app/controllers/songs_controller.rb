@@ -37,7 +37,15 @@ class SongsController < ApplicationController
     end
     puts "msg #{@msg}"
     @msg
-
+  end
+  
+    # check what is app link belongs to
+  def share_from_btn
+    @user = current_user
+    @song = Song.find(params[:song_id])
+    p params
+    @msg = @song.generate_msg
+    render json: {msg: @msg}
   end
 
   def display_global
@@ -51,7 +59,7 @@ class SongsController < ApplicationController
 
   def display_history
     @user = current_user if user_signed_in?
-    @songs = @user.songs if user_signed_in?
+    @user.histories.order(:updated_at => :desc) if user_signed_in?
   end
 
   private

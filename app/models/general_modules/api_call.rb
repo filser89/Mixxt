@@ -45,7 +45,6 @@ module ApiCall
       url = "https://api.spotify.com/v1/tracks/#{id}"
       res = RestClient.get(url, {"Authorization": "Bearer #{token}"})
       data = JSON.parse(res)
-
     end
 
     def call_net_ease_api_id(id)

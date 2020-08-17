@@ -185,7 +185,6 @@ module CreateMethods
       if app == "spotify"
         token = get_spotify_token
         # regex to cut out the id
-        reg = /((?<=https:\/\/open.spotify.com\/track\/).+(?=\?)|(?<=https:\/\/open.spotify.com\/track\/).+\z)/
         p link
         # make a query to Spotify fot track obj
         id = link.match(reg).to_s

@@ -58,12 +58,9 @@ document.addEventListener('turbolinks:load', () => {
 
 }
 
-
 //  Event listener
 
 btns.forEach(btn => btn.addEventListener("click", toggleShown))
-
-
 
 
 

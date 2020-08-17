@@ -8,26 +8,21 @@
 
 
   <div class="cards">
-    <% @songs.each do |song| %>
+    <% @histories.each do |history| %>
       <div class="card-container col-lg-12">
-        <%= image_tag song.cover_image_url, class: 'cover-image' %>
+        <%= image_tag history.song.cover_image_url, class: 'cover-image' %>
         <div class="card-container-infos">
-          <h2><%= song.name %></h2>
-          <p><%= song.artist %></p>
-          <p><%= song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
+          <h2><%= history.song.name %></h2>
+          <p><%= history.song.artist %></p>
+          <p><%= history.song.updated_at.strftime("%m-%e-%y %H:%M") %></p>
         </div>
-        <form action="/songs" method="post">
-          <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
-          <input type="hidden" name="link" id="link" value="<% song.song_details[0].url %>">
-          <%#= song.name %> <%#= song.artist %> <%#= song.song_details[1].url %>
-          <button class="btn-blue">Share</button>
-        </form>
+          <button type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
       </div>
     <% end %>
   </div>
-<% else %>
-<p>Please log in to see your histories</p>
-<% end %>
+  <% else %>
+  <p>Please log in to see your histories</p>
+  <% end %>
 </div>
 <script>
   const header = document.querySelector('.header');
@@ -43,6 +38,43 @@
     }
     prevScrollPos = currentScrollPos;
   })
+
+  function shareLink(e) {
+    const song_id = e.target.dataset.song_id
+    fetch(`share_from_btn?song_id=${song_id}`)
+          .then(response => response.json())
+          .then(data => {
+              const message = data.msg
+              console.log(message)
+              let textArea  = document.createElement('textarea');
+              textArea.width  = "1px";
+              textArea.height = "1px";
+              textArea.background =  "transparents" ;
+              textArea.value = `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}`
+              document.body.append(textArea);
+              textArea.select();
+              document.execCommand('copy');   //No i18n
+              document.body.removeChild(textArea);
+        });
+
+  }
+
+  const sharebuttons = document.querySelectorAll(".btn-blue")
+  sharebuttons.forEach(btn => btn.addEventListener("click", shareLink));
+
+  //   function copyText(ev){
+  //   let div = document.getElementById(ev);
+  //   let text = div;
+  //   let textArea  = document.createElement('textarea');
+  //   textArea.width  = "1px";
+  //   textArea.height = "1px";
+  //   textArea.background =  "transparents" ;
+  //   textArea.value = text;
+  //   document.body.append(textArea);
+  //   textArea.select();
+  //   document.execCommand('copy');   //No i18n
+  //   document.body.removeChild(textArea);
+  // }
 </script>
 
     <!-- <form action="/songs" method="post">
