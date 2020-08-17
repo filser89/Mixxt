@@ -52,7 +52,15 @@ class SongsController < ApplicationController
     end
     puts "msg #{@msg}"
     @msg
+  end
     # check what is app link belongs to
+  def share_from_btn
+    @user = current_user
+    @song = Song.find(params[:song_id])
+    p params
+    @msg = @song.generate_msg
+    render json: {msg: @msg}
+  end
 
     # if Spotify
 
@@ -85,7 +93,7 @@ class SongsController < ApplicationController
     # make up a msg based on the links (instance method of song)
 
     # else "Sorry we can't convert your link as doesn't belong to one of the applications we support"
-  end
+  # end
 
   def display_global
     Song.all # add later
