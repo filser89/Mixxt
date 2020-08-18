@@ -1,21 +1,26 @@
 <div class="container-self">
   <div class="header">
-    <%= image_tag 'settingsoff.png', class: 'nav-icon' %>
-    <p class="header-title">History</p>
-    <%= image_tag 'deleteoff.png', class: 'nav-icon' %>
+    <%= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
+    <p class="header-title">Favorites</p>
+    <%= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
   </div>
   <% if user_signed_in? %>
 
 
   <div class="cards">
-    <% @histories.each do |history| %>
-      <%= history.song.name %>
-      <%= history.song.artist %>
-      <%= history.share_count %>
-      <br>
+    <% @favorites.each do |favorites| %>
+      <div class="card-container">
+        <%= image_tag favorites.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
+        <div class="card-container-infos">
+          <h2><%= favorites.song.name %></h2>
+          <p><%= favorites.song.artist %></p>
+          <p><%= favorites.share_count %></p>
+        </div>
+          <button type="button" data-song_id="<%= favorites.song_id %>" class="btn-blue" >Share</button>
+      </div>
     <% end %>
   </div>
   <% else %>
-  <p>Please log in to see your favorites.</p>
+  <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
   <% end %>
 </div>
