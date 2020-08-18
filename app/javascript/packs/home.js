@@ -1,6 +1,7 @@
 
     // var looper;
     var degrees = 0;
+    //***button animation
     // fetch /fetch-msg, pass param link
     // get a response
     // parse the data
@@ -50,9 +51,9 @@
 
       return degrees
     }
-
+    //***generate link by popup
     const generateMessage = (message) =>{
-      return `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}`
+      return `Mixxt to your favorite app:\n Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}\n Mixxt your own at: http://mixxt.wogenapp.cn`
     }
     function linkvalid (link) {
       if (link.match(/https:\/\/c.y.qq.com/)===null && link.match(/https:\/\/y.music.163.com/)===null && link.match(/https:\/\/open.spotify.com/)===null) {
@@ -74,6 +75,8 @@
       if (link===""){
         displaymessage()
         document.querySelector('#msg').innerHTML = 'Please drop your link above!'
+        document.querySelector('#copy').innerHTML = 'Okay'
+        document.querySelector('#exampleModalLongTitle').innerHTML = ''
       }
       else if (linkvalid(link)===false) {
         console.log(linkvalid(link))
@@ -89,6 +92,7 @@
           modal.classList.add('show')
           modal.style.display = 'block'
           document.querySelector('#exampleModalLongTitle').innerHTML = 'Your link has been generated'
+          document.querySelector('#copy').innerHTML = 'Got the link, ready to share!'
           const message = data.msg
           document.querySelector('#msg').innerHTML = generateMessage(message)
       });
@@ -107,6 +111,7 @@
 
     mixxtbtn.addEventListener("click", clickFunc)
 
+    //***copy link to clickboard
     document.querySelector('#copy').addEventListener("click", () => {
           copyText("msg")
 

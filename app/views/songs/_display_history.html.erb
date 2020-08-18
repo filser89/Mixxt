@@ -10,7 +10,7 @@
   <div class="cards">
     <% @histories.each do |history| %>
       <div class="card-container col-lg-12">
-        <%= image_tag history.song.cover_image_url, class: 'cover-image' %>
+        <%= image_tag history.song.cover_image_url, class: 'cover-image' if history.song.cover_image_url %>
         <div class="card-container-infos">
           <h2><%= history.song.name %></h2>
           <p><%= history.song.artist %></p>

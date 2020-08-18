@@ -3,11 +3,7 @@ html, body {
   height: 100%;
 }
 
-body {
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  flex-direction: column;
-}
+
 .container {
   flex: 1 0 auto;
 }
@@ -17,15 +13,6 @@ form {
   flex-direction: column;
 }
 
-textarea {
-  margin-bottom: 20px;
-  background: rgba(0, 0, 0, 0);
-  box-shadow: none;
-  border: none;
-  height: 2rem;
-  text-align: center;
-  font-size: 19px;
-}
 
 .topbar {
   position: fixed;
@@ -42,12 +29,6 @@ textarea {
   background: rgba(196, 196, 196, 0.2);
 }
 
-.link {
-  margin-top: 20px;
-  margin-right: 20px;
-  text: white;
-}
-
 #waves {
   position: absolute;
   width: 100%;
@@ -55,11 +36,11 @@ textarea {
   right: 30%;
   // top: 355px;
   left: 0;
-  top: 25%;
+  top: 23%;
   opacity: 0.51;
 }
 .page-container {
-  height: 80vh;
+  height: 95vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -69,7 +50,6 @@ textarea {
 }
 .disc-wave {
   position: relative;
-  height: 300px;
   width: 95vw;
   display: flex;
   justify-content: space-around;
@@ -172,11 +152,9 @@ textarea {
 a{
   color: white;
 }
-.container-form {
+.link-box {
   font-family: Playfair-Display;
-  font-size: 24px;
-  line-height: 32px;
-  color: white;
+  font-size: 1.4em;
 }
 body {
   background: rgba(0, 0, 0, 0.8);
@@ -185,16 +163,49 @@ body {
   display: center;
 }
 
-textarea {
+#link {
   box-shadow: none;
   border: none;
-  height: 3rem;
   text-align: center;
-  font-size: 24px;
   background: transparent;
   color: white;
   text: bold;
   border-bottom-style: double;
   width: 75%;
   margin: 2rem auto;
+  overflow-x: scroll;
+  outline: none;
+}
+
+#link::placeholder {
+  font-size: 1em;
+  font-style: bold;
+}
+
+#link:hover {
+  overflow: visible;
+}
+.modal-body {
+  font-size: 0.8em;
+}
+.modal-content {
+  width: 80%;
+}
+#multi-item-example {
+  width: 11em;
+  height: 11em;
+}
+.history_img {
+  margin: 1em auto;
+  width: 5.5em;
+  height: 5.5em;
+  border-radius: 5px;
+
+}
+.card {
+  border: none;
+}
+
+.kill-filter {
+  filter: unset !important;
 }
