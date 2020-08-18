@@ -1,3 +1,4 @@
+require 'open-uri'
 module CreateMethods
   extend ActiveSupport::Concern
   def self.included(base)
@@ -67,13 +68,36 @@ module CreateMethods
       CGI.escape(str)
     end
 
+    def upload_img(img, song)
+      LC.init :application_id => ENV["APPLICATION_ID"],
+              :api_key        => ENV["API_KEY"],
+              :quiet     => true
+      photo = LC::File.new({
+        :body => IO.read(img),
+        :local_filename => "#{song.id}_cover.jpg",
+        :content_type => "image/jpeg",
+      })
+      photo.save
+      photo.url
+    end
+
+    def img_from_url(url)
+      img = open('image.png', 'wb') do |file|
+        file << open(url).read
+      end
+      puts "Created image #{img}"
+      img
+    end
+
     def create_song_from_spotify_track(track, user)
       name = name_to_s(track["name"])
       album = track["album"]["name"]
       artist = artists_arr_to_s(track["artists"])
-      cover_image_url = track["album"]["images"][1]["url"]
 
-      song = Song.create!(name: name, album: album, artist: artist, cover_image_url: cover_image_url)
+      song = Song.create!(name: name, album: album, artist: artist)
+      cover_image_url = upload_img(img_from_url(track["album"]["images"][1]["url"]), song)
+      song.cover_image_url = cover_image_url
+      song.save
       search_query = generate_search_query(name, artist, album)
       p "Creating #{name} by #{artist}"
 
@@ -124,7 +148,7 @@ module CreateMethods
       # SongDetail spotify
       SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
       # Song.img_url
-      song.cover_image_url = spotify_hash["album"]["images"][1]["url"]
+      song.cover_image_url = upload_img(img_from_url(spotify_hash["album"]["images"][1]["url"]), song)
       song.save
       # call  qq
       qq_hash = call_qq_api_search(search_query)
@@ -162,7 +186,7 @@ module CreateMethods
       # SongDetail spotify
       SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
       # Song.img_url
-      song.cover_image_url = spotify_hash["album"]["images"][1]["url"]
+      song.cover_image_url = upload_img(img_from_url(spotify_hash["album"]["images"][1]["url"]), song)
       song.save
 
       net_ease_hash = call_net_ease_api_search(search_query)
