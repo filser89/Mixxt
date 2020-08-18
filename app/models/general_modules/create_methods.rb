@@ -62,7 +62,6 @@ module CreateMethods
       artists_str[0..n - 3]
     end
 
-
     def generate_search_query(name, artist, album)
       str = "#{name} #{artist.gsub(",","")} #{album == name ? '' : album}".gsub(/[^\x00-\x7F]/, "")
       CGI.escape(str)
@@ -216,14 +215,15 @@ module CreateMethods
     end
 
     def update_count(song, user)
+      puts "Inside update count"
       history = History.find_by(song: song, user: user)
       if history
-        # puts "IF TRUE"
+        puts "IF TRUE"
         history.share_count += 1
         history.save
       else
-        # puts "IF FALSE"
-        history = History.create!(song: song, user: user)
+        puts "IF FALSE"
+        History.create!(song: song, user: user)
       end
     end
   end
