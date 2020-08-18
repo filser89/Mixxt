@@ -50,9 +50,9 @@ document.addEventListener('turbolinks:load', () => {
     // e.preventDefault()
 
     const shown = document.querySelector(".views_container.shown")
-    console.log(shown)
+    console.log('shown=>',shown)
     const divToShow = document.querySelector(`.${e.target.dataset.view}`)
-    console.log(divToShow)
+    console.log('divToShow=>',divToShow)
     shown.classList.toggle("shown")
     divToShow.classList.toggle("shown")
 
