@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     authorize @user
     # img = user_params[:image_url]
     if user_params[:image].present?
-      image_url = upload_img(user_params[:image])
+      image_url = upload_img(user_params[:image], @user)
       puts "url => #{image_url}"
       params = user_params
       puts "user params => #{params}"
@@ -37,13 +37,13 @@ class UsersController < ApplicationController
   private
 
 
-  def upload_img(img)
+  def upload_img(img, user)
     LC.init :application_id => ENV["APPLICATION_ID"],
             :api_key        => ENV["API_KEY"],
             :quiet     => true
     photo = LC::File.new({
       :body => IO.read(img),
-      :local_filename => "parsers.jpg",
+      :local_filename => "avatar_#{user.id}.jpg",
       :content_type => "image/jpeg",
     })
     photo.save
