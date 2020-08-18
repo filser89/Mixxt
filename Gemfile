@@ -35,7 +35,8 @@ gem 'devise'
 gem 'rest-client'
 gem 'inline_svg'
 gem 'pundit'
-
+gem 'activestorage'
+gem "leancloud-ruby-client"
 gem 'local_time'
 
 group :development, :test do

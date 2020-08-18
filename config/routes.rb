@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'history', to: 'songs#display_history'
   get 'share_from_btn', to: 'songs#share_from_btn'
   resources :users, only: [:edit, :update, :show]
+  patch 'set_image', to: 'users#set_image'
 end
 # # get 'about', to: 'pages#about'
 # /songs  post  songs create
