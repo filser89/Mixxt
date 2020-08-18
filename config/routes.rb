@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'favorites', to: 'songs#display_favorites'
   get 'history', to: 'songs#display_history'
   get 'share_from_btn', to: 'songs#share_from_btn'
+  resources :users, only: [:edit, :update, :show]
 end
 # # get 'about', to: 'pages#about'
 # /songs  post  songs create
