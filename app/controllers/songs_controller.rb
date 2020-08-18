@@ -1,6 +1,8 @@
 class SongsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg, :share_from_btn]
 
+
+
   def home
     @histories = display_history
     @globals = display_global
