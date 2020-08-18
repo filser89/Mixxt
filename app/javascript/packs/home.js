@@ -118,13 +118,14 @@
           var modal = document.querySelector('#exampleModalCenter')
           modal.classList.remove('show')
           modal.style.display = 'none'
-
+          document.querySelector("#link").value=""
     })
 
-    document.querySelector('.close').addEventListener("click", () => {
+    document.querySelector('#close').addEventListener("click", () => {
           var modal = document.querySelector('#exampleModalCenter')
           modal.classList.remove('show')
           modal.style.display = 'none'
+          document.querySelector("#link").value=""
     })
 
     function copyText(ev){

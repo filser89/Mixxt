@@ -5,6 +5,7 @@ class SongsController < ApplicationController
     @histories = display_history
     @globals = display_global
     @favorites = display_favorites
+    # raise
   end
 
   def fetch_msg

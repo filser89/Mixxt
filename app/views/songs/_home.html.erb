@@ -25,7 +25,7 @@
     <div class="modal-content">
       <div class="modal-header ml-0">
         <h6 class="modal-title text-secondary font-weight-bold" id="exampleModalLongTitle"></h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -41,34 +41,39 @@
 </div>
     <!-- </form> -->
 <div id="multi-item-example" class="carousel slide carousel-multi-item justify-content-center mt-4" data-ride="carousel" style="margin: 0 auto">
-  <!--Indicators-->
-  <ol class="carousel-indicators">
-    <% @histories.each_with_index do |history, i| %>
-     <!--  <li data-target="#multi-item-example" data-slide-to="<%= i %>"></li> -->
-    <% end %>
-  </ol>
-  <!--/.Indicators-->
+
   <div class="carousel-container d-flex justify-content-around">
       <div class="controller btn-left d-flex align-items-center">
         <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
       </div>
         <div class="carousel-inner d-flex" style="border: none" role="listbox">
           <!--First slide-->
+
+          <% if user_signed_in? && (@histories !=nil) %>
           <% @histories.each_with_index do |history, i| %>
             <div class="kill-filter carousel-item <%= i.zero? ? 'active' : '' %>">
                   <div class="d-flex justify-content-center card" style="background-color: transparent; color: white">
-                     <%= image_tag history.song.cover_image_url, class: 'history_img' if history.song.cover_image_url %>
+                     <%= image_tag history.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
                      <h6><%= history.song.name %></h6>
                     <h6><%= history.song.artist %></h6>
-                    <h6>
-                      <%= history.song.updated_at.strftime("%m-%e-%y %H:%M") %>
-                    </h6>
                   </div>
               </div>
             <% end %>
-          </div>
-    <div class="controller btn-right d-flex align-items-center"><a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-right"></i></a></div>
-  </div>
+          <% else %>
+          <% @globals.each_with_index do |global, i| %>
+            <div class="kill-filter carousel-item <%= i.zero? ? 'active' : '' %>">
+                  <div class="d-flex justify-content-center card" style="background-color: transparent; color: white">
+                     <%= image_tag global.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                     <h6><%= global.song.name %></h6>
+                    <h6><%= global.song.artist %></h6>
+                  </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="controller btn-right d-flex align-items-center"><a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-right"></i></a>
+      </div>
+</div>
 </div>
 
 <%= javascript_pack_tag 'home', 'data-turbolinks-track': 'reload', defer: true %>
