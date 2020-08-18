@@ -1,1 +1,6 @@
-edit.html.erb
+<%= simple_form_for(@user) do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :audd_key %>
+  <%= f.button :submit %>
+<% end %>
