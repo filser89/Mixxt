@@ -205,8 +205,8 @@ module CreateMethods
       elsif app == "qq"
         name_reg = /(?<=《).+(?=》)/
         artist_reg = /\A.+(?=《)/
-        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z]+/, " ").gsub("Explicit","")
-        artist = link.match(artist_reg).to_s.gsub(/[^0-9a-zA-Z]+/, " ")
+        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ").gsub("Explicit","")
+        artist = link.match(artist_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ")
         p "That's what we search for: #{name} #{artist}"
         search_query = CGI.escape("#{name} #{artist}".gsub(/[^\x00-\x7F]/, ""))
         track = call_qq_api_search(search_query)
