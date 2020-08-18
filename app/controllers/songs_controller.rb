@@ -38,7 +38,7 @@ class SongsController < ApplicationController
     puts "msg #{@msg}"
     @msg
   end
-  
+
     # check what is app link belongs to
   def share_from_btn
     @user = current_user
@@ -49,7 +49,7 @@ class SongsController < ApplicationController
   end
 
   def display_global
-    Song.all # add later
+    History.all.order(:share_count => :desc) # add later
   end
 
   def display_favorites
@@ -59,9 +59,6 @@ class SongsController < ApplicationController
 
   def display_history
     @user = current_user if user_signed_in?
-    @user.histories.order(:updated_at => :desc) if user_signed_in?
+    @user.histories.order(:created_at => :desc) if user_signed_in?
   end
-
-  private
-
 end

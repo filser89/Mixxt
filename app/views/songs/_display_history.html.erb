@@ -10,18 +10,19 @@
   <div class="cards">
     <% @histories.each do |history| %>
       <div class="card-container col-lg-12">
-        <%= image_tag history.song.cover_image_url, class: 'cover-image' %>
+        <%= image_tag history.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
         <div class="card-container-infos">
           <h2><%= history.song.name %></h2>
           <p><%= history.song.artist %></p>
-          <p><%= history.song.updated_at.localtime.strftime("%m-%e-%y %H:%M") %></p>
+          <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
+          <p><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></p>
         </div>
           <button type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
       </div>
     <% end %>
   </div>
   <% else %>
-  <p>Please log in to see your histories</p>
+  <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
   <% end %>
 </div>
 <script>

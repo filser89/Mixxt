@@ -35,6 +35,8 @@ gem 'devise'
 gem 'rest-client'
 gem 'inline_svg'
 
+gem 'local_time'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

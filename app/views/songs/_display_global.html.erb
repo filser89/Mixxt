@@ -1,0 +1,21 @@
+<div class="container-self">
+  <div class="header">
+    <%= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
+    <p class="header-title">Global</p>
+    <%= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
+  </div>
+
+  <div class="cards">
+    <% @globals.each do |song| %>
+      <div class="card-container">
+        <%= image_tag song.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
+        <div class="card-container-infos">
+          <h2><%= song.song.name %></h2>
+          <p><%= song.song.artist %></p>
+          <p><%= song.share_count %></p>
+        </div>
+          <button type="button" data-song_id="<%= song.song_id %>" class="btn-blue" >Share</button>
+      </div>
+    <% end %>
+  </div>
+</div>
