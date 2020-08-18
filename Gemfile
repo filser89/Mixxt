@@ -34,6 +34,9 @@ gem 'simple_form'
 gem 'devise'
 gem 'rest-client'
 gem 'inline_svg'
+gem 'pundit'
+
+gem 'local_time'
 
 group :development, :test do
   gem 'pry-byebug'

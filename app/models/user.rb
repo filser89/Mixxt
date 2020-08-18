@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :histories
   has_many :songs, through: :histories
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

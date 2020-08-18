@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg]
+  skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg, :share_from_btn]
 
   def home
     @histories = display_history
@@ -11,7 +11,7 @@ class SongsController < ApplicationController
     @song = Song.new
     @msg = create if params[:link].present?
     puts "MESSAGE #{@msg}"
-    render json: {msg: @msg}
+    render json: { msg: @msg }
   end
 
   def create
@@ -38,18 +38,19 @@ class SongsController < ApplicationController
     puts "msg #{@msg}"
     @msg
   end
-  
+
     # check what is app link belongs to
   def share_from_btn
     @user = current_user
     @song = Song.find(params[:song_id])
+    Song.update_count(@song, @user)
     p params
     @msg = @song.generate_msg
-    render json: {msg: @msg}
+    render json: { msg: @msg }
   end
 
   def display_global
-    Song.all # add later
+    History.all.order(:share_count => :desc) # add later
   end
 
   def display_favorites
@@ -59,9 +60,6 @@ class SongsController < ApplicationController
 
   def display_history
     @user = current_user if user_signed_in?
-    @user.histories.order(:updated_at => :desc) if user_signed_in?
+    @user.histories.order(:created_at => :desc) if user_signed_in?
   end
-
-  private
-
 end

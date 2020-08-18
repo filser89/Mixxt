@@ -62,7 +62,6 @@ module CreateMethods
       artists_str[0..n - 3]
     end
 
-
     def generate_search_query(name, artist, album)
       str = "#{name} #{artist.gsub(",","")} #{album == name ? '' : album}".gsub(/[^\x00-\x7F]/, "")
       CGI.escape(str)
@@ -206,8 +205,8 @@ module CreateMethods
       elsif app == "qq"
         name_reg = /(?<=《).+(?=》)/
         artist_reg = /\A.+(?=《)/
-        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z]+/, " ").gsub("Explicit","")
-        artist = link.match(artist_reg).to_s.gsub(/[^0-9a-zA-Z]+/, " ")
+        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ").gsub("Explicit","")
+        artist = link.match(artist_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ")
         p "That's what we search for: #{name} #{artist}"
         search_query = CGI.escape("#{name} #{artist}".gsub(/[^\x00-\x7F]/, ""))
         track = call_qq_api_search(search_query)
@@ -216,14 +215,15 @@ module CreateMethods
     end
 
     def update_count(song, user)
+      puts "Inside update count"
       history = History.find_by(song: song, user: user)
       if history
-        # puts "IF TRUE"
+        puts "IF TRUE"
         history.share_count += 1
         history.save
       else
-        # puts "IF FALSE"
-        history = History.create!(song: song, user: user)
+        puts "IF FALSE"
+        History.create!(song: song, user: user)
       end
     end
   end
