@@ -1,5 +1,5 @@
 <div class="container-self">
-<!--   <div class="header">
+  <!--   <div class="header">
     <%#= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
     <p class="header-title">History</p>
     <%#= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
@@ -7,15 +7,15 @@
   <% if user_signed_in? %>
     <div class="header">
       <div class="topbar">
-           <%= image_tag @user.image_url, class: 'img_circle'%>
-          <div class="link">
-           <div>Hello,
-             <% if @user.last_name %>
-               <%= @user.last_name %>
-               <% else %>
+        <%= image_tag @user.image_url, class: 'img_circle'%>
+        <div class="link">
+          <div>Hello,
+            <% if @user.last_name %>
+              <%= @user.last_name %>
+            <% else %>
               <%= @user.email %>
-             <% end %>
-           </div>
+            <% end %>
+          </div>
           <div>
             Check Out Your Past Mixxt!
           </div>
@@ -32,17 +32,17 @@
             <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
             <p><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></p>
           </div>
-            <button data-toggle="popover" data-container="body" data-placement="top" data-content="WooHoo, copied to your clipboard" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
+          <button data-toggle="popover" data-container="body" data-placement="top" data-content="WooHoo, copied to your clipboard" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
         </div>
       <% end %>
     </div>
-    <% else %>
+  <% else %>
     <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
-    <% end %>
+  <% end %>
 </div>
 <%= javascript_pack_tag 'copylink', 'data-turbolinks-track': 'reload', defer: true %>
 <%= javascript_pack_tag 'header', 'data-turbolinks-track': 'reload', defer: true %>
-    <!-- <form action="/songs" method="post">
+<!-- <form action="/songs" method="post">
       <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
       <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>
 
@@ -50,3 +50,9 @@
         <button value="Mixxt" type="submit" class="glow-on-hover" onclick="rotateAnimation('disc',1)" ></button>
       </div>
     </form> -->
+<script>
+  const sharebuttons = document.querySelectorAll(".btn-blue")
+  sharebuttons.forEach(btn => btn.addEventListener("click", (e)=>
+    console.log(e)
+    )
+</script>

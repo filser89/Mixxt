@@ -1,22 +1,22 @@
 <div class="container-self">
-<!--   <div class="header">
+  <!--   <div class="header">
     <%#= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
     <p class="header-title">Global</p>
     <%#= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
   </div> -->
   <div class="header">
     <div class="topbar">
-         <%= image_tag @user.image_url, class: 'img_circle'%>
-        <div class="link">
+      <%#= image_tag @user.image_url if @user.image_url, class: 'img_circle'%>
+      <div class="link">
         <% if user_signed_in? %>
-           <div>Hello,
-             <% if @user.last_name %>
-               <%= @user.last_name %>
-               <% else %>
+          <div>Hello,
+            <% if @user.last_name %>
+              <%= @user.last_name %>
+            <% else %>
               <%= @user.email %>
-             <% end %>
-           </div>
-         <% end %>
+            <% end %>
+          </div>
+        <% end %>
         <div>
           Our Most Popular Mixxt!
         </div>
@@ -24,17 +24,17 @@
     </div>
   </div>
   <div class="cards">
-    <% @globals.each do |song| %>
-      <div class="card-container">
+    <div class="card-container">
+      <% @globals.each do |song| %>
         <%= image_tag song.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
         <div class="card-container-infos">
           <h2><%= song.song.name %></h2>
           <p><%= song.song.artist %></p>
-          <p>Shared <strong><%= song.share_count %><strong> times</p>
+          <p>Shared <strong><%= song.share_count %></strong> times</p>
         </div>
         <button type="button" data-song_id="<%= song.song_id %>" class="btn-blue" >Share</button>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
 <%= javascript_pack_tag 'copylink', 'data-turbolinks-track': 'reload', defer: true %>
