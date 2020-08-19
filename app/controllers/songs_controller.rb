@@ -17,6 +17,14 @@ class SongsController < ApplicationController
     render json: { msg: @msg }
   end
 
+  def songs_recognition
+    @token = current_user.audd_key
+    p @token
+    @histories = display_history
+    @globals = display_global
+    @favorites = display_favorites
+  end
+
   def create
     puts "inside create"
     user = current_user
@@ -32,7 +40,7 @@ class SongsController < ApplicationController
       p @song
       @msg = @song.generate_msg
     else
-    # if NO:
+      # if NO:
       p "This song is not in the database"
       @song = Song.create_new_song(link, app, user)
       @msg = @song.generate_msg
@@ -42,7 +50,7 @@ class SongsController < ApplicationController
     @msg
   end
 
-    # check what is app link belongs to
+  # check what is app link belongs to
   def share_from_btn
     @user = current_user
     @song = Song.find(params[:song_id])

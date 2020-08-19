@@ -38,7 +38,7 @@ gem 'pundit'
 gem 'activestorage'
 gem "leancloud-ruby-client"
 gem 'local_time'
-
+gem 'htmlbeautifier'
 
 group :development, :test do
   gem 'pry-byebug'

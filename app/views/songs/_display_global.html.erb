@@ -4,7 +4,6 @@
     <p class="header-title">Global</p>
     <%= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
   </div>
-
   <div class="cards">
     <% @globals.each do |song| %>
       <div class="card-container">
@@ -14,7 +13,7 @@
           <p><%= song.song.artist %></p>
           <p><%= song.share_count %></p>
         </div>
-          <button type="button" data-song_id="<%= song.song_id %>" class="btn-blue" >Share</button>
+        <button type="button" data-song_id="<%= song.song_id %>" class="btn-blue" >Share</button>
       </div>
     <% end %>
   </div>
