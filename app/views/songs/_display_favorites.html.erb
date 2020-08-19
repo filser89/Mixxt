@@ -1,37 +1,37 @@
 <div class="container-self">
-    <% if user_signed_in? %>
-      <div class="header">
-        <div class="topbar">
-             <%= image_tag @user.image_url, class: 'img_circle'%>
-            <div class="link">
-             <div>Hello,
-               <% if @user.last_name %>
-                 <%= @user.last_name %>
-                 <% else %>
-                <%= @user.email %>
-               <% end %>
-             </div>
-            <div>
-              Check Out Your Fav Mixxt!
-            </div>
+  <% if user_signed_in? %>
+    <div class="header">
+      <div class="topbar">
+        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'img_circle'%>
+        <div class="link">
+          <div>Hello,
+            <% if @user.last_name %>
+              <%= @user.last_name %>
+            <% else %>
+              <%= @user.email %>
+            <% end %>
+          </div>
+          <div>
+            Check Out Your Fav Mixxt!
           </div>
         </div>
       </div>
-      <div class="cards">
-        <% @favorites.each do |favorites| %>
-          <div class="card-container">
-            <%= image_tag favorites.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
-            <div class="card-container-infos">
-              <h2><%= favorites.song.name %></h2>
-              <p><%= favorites.song.artist %></p>
-              <p><%= favorites.share_count %></p>
-            </div>
-              <button type="button" data-song_id="<%= favorites.song_id %>" class="btn-blue" >Share</button>
+    </div>
+    <div class="cards">
+      <% @favorites.each do |favorites| %>
+        <div class="card-container">
+          <%= image_tag favorites.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
+          <div class="card-container-infos">
+            <h2><%= favorites.song.name %></h2>
+            <p><%= favorites.song.artist %></p>
+            <p><%= favorites.share_count %></p>
           </div>
-        <% end %>
-      </div>
-      <% else %>
-      <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
+          <button type="button" data-song_id="<%= favorites.song_id %>" class="btn-blue" >Share</button>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
   <% end %>
 </div>
 <%= javascript_pack_tag 'copylink', 'data-turbolinks-track': 'reload', defer: true %>
