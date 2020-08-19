@@ -1,0 +1,82 @@
+.form-control {
+  border: none;
+  border-bottom: 1px solid #c3c3c3;
+  box-shadow: none;
+  background: transparent;
+  outline: none;
+}
+
+.form-control:focus {
+  background: transparent;
+  outline: none;
+  border-color: none;
+  box-shadow: none;
+}
+
+.email .required, .password .required {
+  color: #e6e6e6;
+  margin-bottom: 0.2rem;
+}
+
+.container {
+  padding-top: 4rem;
+}
+
+.title {
+  text-align: center;
+  color: white;
+  margin-bottom: 50px;
+}
+
+#new_user {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+// .gradient-background {
+//   background-image: radial-gradient(circle at center center, transparent,rgb(0,0,0)),linear-gradient(300deg, rgba(198, 198, 198,0.05) 0%, rgba(198, 198, 198,0.05) 50%,rgba(11, 11, 11,0.05) 50%, rgba(11, 11, 11,0.05) 100%),linear-gradient(64deg, rgba(54, 54, 54,0.05) 0%, rgba(54, 54, 54,0.05) 50%,rgba(132, 132, 132,0.05) 50%, rgba(132, 132, 132,0.05) 100%),linear-gradient(17deg, rgba(57, 57, 57,0.05) 0%, rgba(57, 57, 57,0.05) 50%,rgba(128, 128, 128,0.05) 50%, rgba(128, 128, 128,0.05) 100%),linear-gradient(332deg, rgba(97, 97, 97,0.05) 0%, rgba(97, 97, 97,0.05) 50%,rgba(85, 85, 85,0.05) 50%, rgba(85, 85, 85,0.05) 100%),linear-gradient(148deg, rgba(237, 237, 237,0.05) 0%, rgba(237, 237, 237,0.05) 50%,rgba(211, 211, 211,0.05) 50%, rgba(211, 211, 211,0.05) 100%),linear-gradient(142deg, rgba(168, 168, 168,0.05) 0%, rgba(168, 168, 168,0.05) 50%,rgba(32, 32, 32,0.05) 50%, rgba(32, 32, 32,0.05) 100%),linear-gradient(15deg, rgba(225, 225, 225,0.05) 0%, rgba(225, 225, 225,0.05) 50%,rgba(228, 228, 228,0.05) 50%, rgba(228, 228, 228,0.05) 100%),linear-gradient(5deg, rgba(104, 104, 104,0.05) 0%, rgba(104, 104, 104,0.05) 50%,rgba(43, 43, 43,0.05) 50%, rgba(43, 43, 43,0.05) 100%),radial-gradient(circle at center center, hsl(290,5%,8%),hsl(290,5%,8%));
+// }
+
+.form-actions {
+  text-align: center;
+}
+
+.btn-grad {
+  margin-top: 2rem;
+  // background-image: linear-gradient(to right, #485563 0%, #29323c 100%, #485563 100%);
+  background-color: #6b6b6b;
+  padding: 0.8rem 4rem;
+  border-radius: 1rem;
+  color: #cacaca;
+}
+
+.btn-grad:hover {
+  background-position: right center;
+  opacity: 0.8;
+  color: white;
+}
+
+.render-login {
+  margin-top: 3rem;
+  padding-left: 1rem;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.lt-login {
+  color: #77adff;
+}
+
+.lt-login:hover {
+  color: #cc567c;
+  text-decoration: none;
+}
+
+.lt-home {
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.lt-home-text {
+  color: #77adff;
+}
