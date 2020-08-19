@@ -4,12 +4,13 @@
   right: 0px;
   bottom: 0;
   width: 100%;
-  background: #E5E5E5;
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  background: rgba(196, 196, 196, 0.2);
+  height: 4em;
 }
 
 .navbar-lewagon {

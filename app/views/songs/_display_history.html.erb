@@ -1,70 +1,47 @@
 <div class="container-self">
-  <div class="header">
-    <%= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
+<!--   <div class="header">
+    <%#= image_tag 'settingsoff.png', class: 'nav-icon-head' %>
     <p class="header-title">History</p>
-    <%= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
-  </div>
+    <%#= image_tag 'deleteoff.png', class: 'nav-icon-head' %>
+  </div> -->
   <% if user_signed_in? %>
-
-
-  <div class="cards">
-    <% @histories.each do |history| %>
-      <div class="card-container col-lg-12">
-        <%= image_tag history.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
-        <div class="card-container-infos">
-          <h2><%= history.song.name %></h2>
-          <p><%= history.song.artist %></p>
-          <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
-          <p><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></p>
+    <div class="header">
+      <div class="topbar">
+           <%= image_tag @user.image_url, class: 'img_circle'%>
+          <div class="link">
+           <div>Hello,
+             <% if @user.last_name %>
+               <%= @user.last_name %>
+               <% else %>
+              <%= @user.email %>
+             <% end %>
+           </div>
+          <div>
+            Check Out Your Past Mixxt!
+          </div>
         </div>
-          <button type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
       </div>
+    </div>
+    <div class="cards">
+      <% @histories.each do |history| %>
+        <div class="card-container col-lg-12">
+          <%= image_tag history.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
+          <div class="card-container-infos">
+            <h2><%= history.song.name %></h2>
+            <p><%= history.song.artist %></p>
+            <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
+            <p><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></p>
+          </div>
+            <button data-toggle="popover" data-container="body" data-placement="top" data-content="WooHoo, copied to your clipboard" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
+        </div>
+      <% end %>
+    </div>
+    <% else %>
+    <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
     <% end %>
-  </div>
-  <% else %>
-  <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
-  <% end %>
 </div>
-<script>
-  const header = document.querySelector('.header');
-  let prevScrollPos = window.pageYOffset;
-
-  window.addEventListener('scroll', () => {
-    let currentScrollPos = window.pageYOffset;
-
-    if (prevScrollPos < currentScrollPos) {
-      header.classList.add('hide');
-    } else {
-      header.classList.remove('hide');
-    }
-    prevScrollPos = currentScrollPos;
-  })
-
-  function shareLink(e) {
-    const song_id = e.target.dataset.song_id
-    fetch(`share_from_btn?song_id=${song_id}`)
-          .then(response => response.json())
-          .then(data => {
-              const message = data.msg
-              console.log(message)
-              let textArea  = document.createElement('textarea');
-              textArea.width  = "1px";
-              textArea.height = "1px";
-              textArea.background =  "transparents" ;
-              textArea.value = `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}`
-              document.body.append(textArea);
-              textArea.select();
-              document.execCommand('copy');   //No i18n
-              document.body.removeChild(textArea);
-        });
-
-  }
-
-  const sharebuttons = document.querySelectorAll(".btn-blue")
-  sharebuttons.forEach(btn => btn.addEventListener("click", shareLink));
-
-</script>
-
+<%= javascript_pack_tag 'copylink', 'data-turbolinks-track': 'reload', defer: true %>
+<%= javascript_pack_tag 'header', 'data-turbolinks-track': 'reload', defer: true %>
     <!-- <form action="/songs" method="post">
       <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
       <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>

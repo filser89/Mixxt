@@ -3,16 +3,9 @@ html, body {
   height: 100%;
 }
 
-
 .container {
   flex: 1 0 auto;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
 
 .topbar {
   position: fixed;
@@ -20,13 +13,20 @@ form {
   top: 0;
   right: 0;
   left: 0;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: right;
-  justify-content: flex-end;
   background: rgba(196, 196, 196, 0.2);
+  height: 4em;
+  padding-right: 1em;
+  padding-left: 1em;
+  color:white;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4em;
+  width: 100%
 }
 
 #waves {
@@ -40,10 +40,10 @@ form {
   opacity: 0.51;
 }
 .page-container {
-  height: 95vh;
+  height: 97vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   width: 95%;
   margin: 0 auto;
   text-align: center;
@@ -172,7 +172,7 @@ body {
   text: bold;
   border-bottom-style: double;
   width: 75%;
-  margin: 2rem auto;
+  margin: 3rem auto;
   overflow-x: scroll;
   outline: none;
 }
@@ -192,8 +192,12 @@ body {
   width: 80%;
 }
 #multi-item-example {
-  width: 11em;
-  height: 11em;
+  width: 100%;
+  height: 13em;
+  display: flex;
+}
+.carousel-container {
+  width: 220px;
 }
 .history_img {
   margin: 1em auto;
@@ -216,4 +220,9 @@ body {
 
 .link-login {
   color: blue;
+}
+#cbleft #cbright {
+  position: fixed;
+  left: 0;
+  top: 0;
 }
