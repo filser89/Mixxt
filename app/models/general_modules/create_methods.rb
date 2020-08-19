@@ -19,7 +19,7 @@ module CreateMethods
 
     def extract_url(link, app)
       if app == "spotify"
-        reg = /\Ahttps:\/\/open.spotify.com\/track\/.+(?=\?)/
+        reg = /(\Ahttps:\/\/open.spotify.com\/track\/.+(?=\?))|(\Ahttps:\/\/open.spotify.com\/track\/.+\z)/
         url = link.match(reg).to_s
 
       elsif app == "net_ease"
