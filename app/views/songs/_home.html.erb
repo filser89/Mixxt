@@ -1,7 +1,7 @@
 <div class="home-page">
   <div class="topbar">
     <% if user_signed_in? %>
-      <%= image_tag @user.image_url, class: 'img_circle'%>
+      <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'img_circle'%>
       <div class="link">
         <div>Hello,
           <% if @user.last_name %>
