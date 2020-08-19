@@ -1,0 +1,76 @@
+<div class="topbar">
+  <button class="js-start button button--start">Get the song</button>
+  <div class="link">
+    <% if user_signed_in? %>
+      <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
+    <% else %>
+      <%= link_to 'Log in', new_user_session_path %>
+    <% end %>
+  </div>
+</div>
+<div class="page-container">
+  <div class="link-box">
+    <!-- <form action="/songs" method="post"> -->
+    <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input name="link" id="link" placeholder="Please paste your link here"></input>
+  <div class="disc-wave">
+    <button value="Mixxt" class="glow-on-hover" id="mixxtbtn"></button>
+    <%= image_tag "waves.png", id: 'waves'%>
+    <%= image_tag "disc.png", id: 'disc' %>
+  </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="cascading-modal modal-dialog modal-dialog-centered modal-notify modal-warning model-sm d-flex justify-content-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header ml-0">
+          <h6 class="modal-title text-secondary font-weight-bold" id="exampleModalLongTitle"></h6>
+          <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <p class="modal-body text-muted text-left ml-0" id="msg" style="overflow-wrap:break-word; white-space:pre-line">
+          <%= @msg %>
+        </p>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-outline-warning waves-effect px-2 py-1" type="button" id="copy" data-dismiss="modal"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </form> -->
+  <div id="multi-item-example" class="carousel slide carousel-multi-item justify-content-center mt-4" data-ride="carousel" style="margin: 0 auto">
+    <div class="carousel-container d-flex justify-content-around">
+      <div class="controller btn-left d-flex align-items-center">
+        <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fas fa-chevron-left"></i></a>
+      </div>
+      <div class="carousel-inner d-flex" style="border: none" role="listbox">
+        <!--First slide-->
+        <% if user_signed_in? && (@histories !=nil) %>
+          <% @histories.each_with_index do |history, i| %>
+            <div class="kill-filter carousel-item <%= i.zero? ? 'active' : '' %>">
+              <div class="d-flex justify-content-center card" style="background-color: transparent; color: white">
+                <%= image_tag history.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                <h6><%= history.song.name %></h6>
+                <h6><%= history.song.artist %></h6>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <% @globals.each_with_index do |global, i| %>
+            <div class="kill-filter carousel-item <%= i.zero? ? 'active' : '' %>">
+              <div class="d-flex justify-content-center card" style="background-color: transparent; color: white">
+                <%= image_tag global.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                <h6><%= global.song.name %></h6>
+                <h6><%= global.song.artist %></h6>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="controller btn-right d-flex align-items-center"><a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<%= javascript_pack_tag 'songs_recognition', 'data-turbolinks-track': 'reload', defer: true %>
+<%= javascript_pack_tag 'home', 'data-turbolinks-track': 'reload', defer: true %>

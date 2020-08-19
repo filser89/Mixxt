@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'share_from_btn', to: 'songs#share_from_btn'
   resources :users, only: [:edit, :update, :show]
   patch 'set_image', to: 'users#set_image'
+  get 'songs_recognition', to: 'songs#songs_recognition'
 end
 # # get 'about', to: 'pages#about'
 # /songs  post  songs create

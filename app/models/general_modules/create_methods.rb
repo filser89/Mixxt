@@ -19,7 +19,7 @@ module CreateMethods
 
     def extract_url(link, app)
       if app == "spotify"
-        reg = /\Ahttps:\/\/open.spotify.com\/track\/.+(?=\?)/
+        reg = /(\Ahttps:\/\/open.spotify.com\/track\/.+(?=\?))|(\Ahttps:\/\/open.spotify.com\/track\/.+\z)/
         url = link.match(reg).to_s
 
       elsif app == "net_ease"
@@ -57,7 +57,7 @@ module CreateMethods
     def artists_arr_to_s(artists)
       artists_str = ""
       artists.each do |artist|
-      artists_str += "#{artist["name"]}, "
+        artists_str += "#{artist["name"]}, "
       end
       n = artists_str.size
       artists_str[0..n - 3]
@@ -70,12 +70,12 @@ module CreateMethods
 
     def upload_img(img, song)
       LC.init :application_id => ENV["APPLICATION_ID"],
-              :api_key        => ENV["API_KEY"],
-              :quiet     => true
+        :api_key => ENV["API_KEY"],
+        :quiet => true
       photo = LC::File.new({
-        :body => IO.read(img),
-        :local_filename => "#{song.id}_cover.jpg",
-        :content_type => "image/jpeg",
+                             :body => IO.read(img),
+                             :local_filename => "#{song.id}_cover.jpg",
+                             :content_type => "image/jpeg",
       })
       photo.save
       photo.url
@@ -207,18 +207,18 @@ module CreateMethods
 
       if app == "spotify"
         token = get_spotify_token
+        reg = /((?<=https:\/\/open.spotify.com\/track\/).+(?=\/)|(?<=https:\/\/open.spotify.com\/track\/).+(?=\?)|(?<=https:\/\/open.spotify.com\/track\/).+\z)/
         # regex to cut out the id
         p link
         # make a query to Spotify fot track obj
         id = link.match(reg).to_s
-
 
         track = call_spotify_api_id(token, id)
 
         create_song_from_spotify_track(track, user)
 
       elsif app == "net_ease"
-        id_reg =/(?<=https:\/\/y.music.163.com\/m\/song\/).+(?=\/)/
+        id_reg = /(?<=https:\/\/y.music.163.com\/m\/song\/).+(?=\/)/
         net_ease_id = link.match(id_reg).to_s
 
         # # get the track
@@ -229,7 +229,7 @@ module CreateMethods
       elsif app == "qq"
         name_reg = /(?<=《).+(?=》)/
         artist_reg = /\A.+(?=《)/
-        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ").gsub("Explicit","")
+        name = link.match(name_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ").gsub("Explicit", "")
         artist = link.match(artist_reg).to_s.gsub(/[^0-9a-zA-Z']+/, " ")
         p "That's what we search for: #{name} #{artist}"
         search_query = CGI.escape("#{name} #{artist}".gsub(/[^\x00-\x7F]/, ""))
