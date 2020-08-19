@@ -13,9 +13,13 @@
   box-shadow: none;
 }
 
-.email .required, .password .required {
+.email .required, .password .required, .email .optional, .password .optional, .form-check {
   color: #e6e6e6;
   margin-bottom: 0.2rem;
+}
+
+.form-check {
+  font-size: 14px;
 }
 
 .container {
@@ -56,7 +60,7 @@
   color: white;
 }
 
-.render-login {
+.render {
   margin-top: 3rem;
   padding-left: 1rem;
   font-size: 0.9rem;
