@@ -8,15 +8,6 @@
     <div class="topbar">
       <%#= image_tag @user.image_url, class: 'img_circle'%>
       <div class="link">
-        <% if user_signed_in? %>
-          <div>Hello,
-            <% if @user.last_name %>
-              <%= @user.last_name %>
-            <% else %>
-              <%= @user.email %>
-            <% end %>
-          </div>
-        <% end %>
         <div>
           Our Most Popular Mixxt!
         </div>
