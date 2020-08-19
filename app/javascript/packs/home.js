@@ -29,11 +29,11 @@
         setTimeout(() => {rotateAnimation(el, speed)},1)
         degrees+=1;
         document.querySelector('.glow-on-hover').style.opacity = 0.8
-        console.log()
         // console.log(popup)
 
       } else {
         degrees = 0
+        popup(msg)
         elem.style.zIndex = 0
         document.querySelector('.glow-on-hover').style.opacity = 0
         if(navigator.userAgent.match("Chrome")){
@@ -105,7 +105,7 @@
 
     const clickFunc = () => {
       rotateAnimation('disc',1)
-      setTimeout(popup(msg),2000)
+      // setTimeout(popup(msg),5000)
 
     }
 
