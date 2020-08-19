@@ -6,7 +6,7 @@ class Song < ApplicationRecord
 
   def generate_msg
     {
-      spotify: "#{song_details.find_by(app: "spotify").url}}",
+      spotify: "#{song_details.find_by(app: "spotify").url}",
       net_ease: "#{song_details.find_by(app: "net_ease").url}",
       qq: "#{song_details.find_by(app: "qq").url}"
     }
