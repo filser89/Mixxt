@@ -52,21 +52,25 @@
     <div class="carousel-container d-flex">
       <div class="carousel-inner d-flex" style="border: none" role="listbox">
         <% if user_signed_in? && (@histories !=nil) %>
-          <% @histories.each_with_index do |history, i| %>
+          <% @histories.last(3).each_with_index do |history, i| %>
             <!--First slide-->
             <div class="kill-filter carousel-item <%= i.zero? ? 'active' : '' %>">
               <div class="d-flex justify-content-center card" style="background-color: transparent; color: white">
-                <%= image_tag history.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                <button style="background: transparent; border-style: none; outline: none" data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard" data-song_id="<%= history.song_id %>"class="clickpic" type="button">
+                  <%= image_tag history.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                </button>
                 <h6><%= history.song.name %></h6>
                 <h6><%= history.song.artist %></h6>
               </div>
             </div>
           <% end %>
         <% else %>
-          <% @globals.each_with_index do |global, i| %>
+          <% @globals.last(3).each_with_index do |global, i| %>
             <div class="kill-filter carousel-item <%= i.zero? ? 'active' : '' %>">
               <div class="d-flex justify-content-center card" style="background-color: transparent; color: white">
-                <%= image_tag global.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                <button style="background: transparent; border-style: none; outline: none" data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard" data-song_id="<%= global.song_id %>"class="clickpic" type="button">
+                  <%= image_tag global.song.cover_image_url, class: 'history_img' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'history_img' %>
+                </button>
                 <h6><%= global.song.name %></h6>
                 <h6><%= global.song.artist %></h6>
               </div>

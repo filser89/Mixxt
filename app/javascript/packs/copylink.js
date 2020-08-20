@@ -33,6 +33,15 @@
 
 function pop () {
   console.log('pop')
-  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="popover"]').popover({
+    container: 'body'
+  })
 }
 // document.querySelector('[data-toggle="popover"]').addEventListener("click", pop)
+ const clickpics = document.querySelectorAll(".clickpic")
+  clickpics.forEach(btn => btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    shareLink(e);
+  }));
+
+

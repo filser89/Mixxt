@@ -53,6 +53,7 @@ class SongsController < ApplicationController
   # check what is app link belongs to
   def share_from_btn
     @user = current_user
+    p params
     @song = Song.find(params[:song_id])
     Song.update_count(@song, @user)
     p params
