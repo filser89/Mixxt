@@ -40,6 +40,7 @@ gem 'activestorage'
 gem "leancloud-ruby-client"
 gem 'local_time'
 gem 'htmlbeautifier'
+gem 'jquery-rails'
 
 group :development, :test do
   gem 'pry-byebug'

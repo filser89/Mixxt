@@ -13,7 +13,7 @@
             <% if @user.last_name %>
               <%= @user.last_name %>
             <% else %>
-              <%= @user.email %>
+              <%= @user.email %> <%# split string into first part of email %>
             <% end %>
           </div>
           <div>
@@ -40,19 +40,9 @@
     <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
   <% end %>
 </div>
-<%= javascript_pack_tag 'copylink', 'data-turbolinks-track': 'reload', defer: true %>
-<%= javascript_pack_tag 'header', 'data-turbolinks-track': 'reload', defer: true %>
-<!-- <form action="/songs" method="post">
-      <input type="hidden" id="authenticity_token" name="authenticity_token" value="<%= form_authenticity_token %>">
-      <textarea name="link" id="link" placeholder="Please paste your link here"></textarea>
-
-      <div class="disc-wave">
-        <button value="Mixxt" type="submit" class="glow-on-hover" onclick="rotateAnimation('disc',1)" ></button>
-      </div>
-    </form> -->
 <script>
   const sharebuttons = document.querySelectorAll(".btn-blue")
   sharebuttons.forEach(btn => btn.addEventListener("click", (e)=>
     console.log(e)
-    )
+    ));
 </script>
