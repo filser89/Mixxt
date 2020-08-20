@@ -57,7 +57,9 @@ module ApiCall
     def call_spotify_api_search(token, search_query)
       url = "https://api.spotify.com/v1/search?q=#{search_query}&type=track"
       res = RestClient.get(url, {"Authorization": "Bearer #{token}"})
+      p res
       data = JSON.parse(res)
+      p data
       data["tracks"]["items"][0]
     end
   end

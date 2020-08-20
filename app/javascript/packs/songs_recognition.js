@@ -28,10 +28,24 @@ const saveRecording = () => {
     return blob
 };
 
+
+const getUserToken = () => {
+  console.log('running')
+  return new Promise((resolve, reject) => {
+    fetch('get-user-token')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.token)
+      resolve(data.token)
+    });
+  })
+
+}
 /**
  * Start recording.
  */
 const startRecording = () => {
+    startButton.innerText = "Listening..."
     recorder.start();
 };
 
@@ -40,15 +54,15 @@ const startRecording = () => {
  */
 const stopRecording = () => {
     recorder.stop();
+    startButton.innerText = "Recognize!"
 };
 
 const recordAudio = () => {
-  console.log("started recording")
   startRecording()
   setTimeout(stopRecording, 5000)
 }
 
-const callAuddApi = (blob, callback) => {
+const callAuddApi = async (blob, callback) => {
   console.log("Calling api")
   let myHeaders = new Headers();
   let formdata = new FormData();
@@ -62,16 +76,19 @@ const callAuddApi = (blob, callback) => {
     redirect: "follow",
     mode: "cors",
   };
-
-  fetch("https://api.audd.io/?api_token=bf9bfa87bf6318d61e1e7fcc72dfda4b", requestOptions)
+  const token = getUserToken()
+  token.then(res => {
+    console.log(res)
+  fetch(`https://api.audd.io/?api_token=${res}`, requestOptions)
     .then((response) => {
       console.log(response)
       return response.json();
     })
     .then((result) => {
       console.log(result);
-      assignValueToTextbox(result)
+      // assignValueToTextbox(result)
     })
+  })
 
 }
 
@@ -81,7 +98,7 @@ const assignValueToTextbox = (result) =>{
   textbox.value = spotifyLink
 }
 
-const onStopFunc = () => {
+const onStopFunc = async () => {
   callAuddApi(saveRecording(), assignValueToTextbox)
 }
 

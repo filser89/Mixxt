@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update, :show]
   patch 'set_image', to: 'users#set_image'
   get 'songs_recognition', to: 'songs#songs_recognition'
+  get 'get-user-token', to: 'users#get_token'
 end
 # # get 'about', to: 'pages#about'
 # /songs  post  songs create
