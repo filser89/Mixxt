@@ -2,11 +2,11 @@
   <% if user_signed_in? %>
     <div class="header">
       <div class="topbar">
-        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'img_circle'%>
+        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
         <div class="link">
           <div>Hello,
-            <% if @user.last_name %>
-              <%= @user.last_name %>
+            <% if @user.full_name %>
+              <%= @user.full_name %>
             <% else %>
               <%= @user.email %>
             <% end %>
@@ -24,7 +24,7 @@
           <div class="card-container-infos">
             <h2><%= favorites.song.name %></h2>
             <p><%= favorites.song.artist %></p>
-            <p><%= favorites.share_count %></p>
+            <p>Shared <strong><%= favorites.share_count %></strong> times </p>
           </div>
           <button type="button" data-song_id="<%= favorites.song_id %>" class="btn-blue" >Share</button>
         </div>

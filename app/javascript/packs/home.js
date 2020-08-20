@@ -1,4 +1,3 @@
-
     // var looper;
     var degrees = 0;
     //***button animation
@@ -157,6 +156,3 @@ function selectThis () {
 icons.forEach((icon) => {
   icon.addEventListener('click', selectThis)
 });
-
-
-

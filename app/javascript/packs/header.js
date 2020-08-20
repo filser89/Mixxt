@@ -1,3 +1,4 @@
+
   const header = document.querySelector('.header');
   let prevScrollPos = window.pageYOffset;
 
@@ -11,3 +12,6 @@
     }
     prevScrollPos = currentScrollPos;
   })
+
+
+
