@@ -41,7 +41,7 @@ module CreateMethods
         artist = link.match(artist_reg).to_s
         search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
         qq_hash = call_qq_api_search(search_query)
-        puts "QQ HASH #{qq_hash}"
+        # puts "QQ HASH #{qq_hash}"
         qq_id = qq_hash["songid"]
         url = "http://y.qq.com/#type=song&id=#{qq_id}"
         # p url
