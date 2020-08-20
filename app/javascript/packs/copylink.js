@@ -13,20 +13,26 @@
               textArea.width  = "1px";
               textArea.height = "1px";
               textArea.background =  "transparents" ;
-              textArea.value = `Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}`
+              textArea.value = `Mixxt to your favorite app:\n Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}\n Mixxt your own at: http://mixxt.wogenapp.cn`;
               document.body.append(textArea);
               textArea.select();
               document.execCommand('copy');   //No i18n
               document.body.removeChild(textArea);
+              pop();
         });
-              // pop();
+
       console.log(e)
   }
 
   const sharebuttons = document.querySelectorAll(".btn-blue")
-  sharebuttons.forEach(btn => btn.addEventListener("click", shareLink));
+  sharebuttons.forEach(btn => btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    shareLink(e);
+  }));
 
-// function pop () {
-//   $('[data-toggle="popover"]').popover()
-// }
+
+function pop () {
+  console.log('pop')
+  $('[data-toggle="popover"]').popover()
+}
 // document.querySelector('[data-toggle="popover"]').addEventListener("click", pop)
