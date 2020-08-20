@@ -28,11 +28,19 @@
   sharebuttons.forEach(btn => btn.addEventListener("click", function(e) {
     e.preventDefault();
     shareLink(e);
+    setTimeout(function () {
+            $('.popover').fadeOut('slow');
+        }, 3000);
   }));
 
 
 function pop () {
   console.log('pop')
-  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="popover"]').popover({
+        delay: {
+            "show": 100,
+            "hide": 100
+        }
+    })
 }
 // document.querySelector('[data-toggle="popover"]').addEventListener("click", pop)
