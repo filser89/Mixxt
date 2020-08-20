@@ -12,6 +12,7 @@ require("local-time")
 require("packs/header")
 require("packs/copylink")
 require("packs/home")
+require("packs/songs_recognition")
 
 
 

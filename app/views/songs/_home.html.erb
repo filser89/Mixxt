@@ -1,5 +1,6 @@
 <div class="home-page">
   <div class="topbar">
+    <%= render "recognition_btn" %>
     <% if user_signed_in? %>
       <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
       <div class="link">
