@@ -32,7 +32,7 @@
             <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
             <p>Last Shared: <strong><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></strong></p>
           </div>
-          <button data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard"  data-trigger="focus" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
+          <button data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
         </div>
       <% end %>
       <!--    <button type="button" id="test" class="example-popover btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus"title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> -->
@@ -41,11 +41,9 @@
     <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
   <% end %>
 </div>
-
-<script>
+<!-- <script>
   const sharebuttons = document.querySelectorAll(".btn-blue")
   sharebuttons.forEach(btn => btn.addEventListener("click", (e)=>
     console.log(e)
     ));
-</script>
-
+</script> -->

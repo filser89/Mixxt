@@ -26,7 +26,7 @@
             <p><%= favorites.song.artist %></p>
             <p>Shared <strong><%= favorites.share_count %></strong> times </p>
           </div>
-          <button type="button" data-song_id="<%= favorites.song_id %>" class="btn-blue" >Share</button>
+          <button data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard" type="button" data-song_id="<%= favorites.song_id %>" class="btn-blue" >Share</button>
         </div>
       <% end %>
     </div>
