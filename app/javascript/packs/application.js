@@ -9,6 +9,9 @@ require("@rails/activestorage").start()
 require("channels")
 require("custom/disc")
 require("local-time")
+require("packs/header")
+require("packs/copylink")
+require("packs/home")
 
 
 

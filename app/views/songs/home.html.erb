@@ -2,10 +2,10 @@
 <div class="views_container histories"><%= render "display_history" %></div>
 <div class="views_container favorites"><%= render "display_favorites" %></div>
 <div class="views_container globals"><%= render "display_global" %></div>
-
 <div class="navbar">
   <div class="nav-div"><%= image_tag "mixoff.png", class: 'nav-icon current', data: {view: 'home'} %></div>
   <div class="nav-div"><%= image_tag "historyoff.png", class: 'nav-icon', data: {view: 'histories'} %></div>
   <div class="nav-div"><%= image_tag "favoritesoff.png", class: 'nav-icon', data: {view: 'favorites'}  %></div>
   <div class="nav-div"><%= image_tag "globaloff.png", class: 'nav-icon', data: {view: 'globals'}  %></div>
 </div>
+<%#= javascript_pack_tag 'header', 'data-turbolinks-track': 'reload', defer: true %>
