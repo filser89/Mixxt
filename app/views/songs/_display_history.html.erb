@@ -13,7 +13,7 @@
             <% if @user.last_name %>
               <%= @user.last_name %>
             <% else %>
-              <%= @user.email %> <%# split string into first part of email %>
+              <%= @user.email[/[^@]+/] %>
             <% end %>
           </div>
           <div>

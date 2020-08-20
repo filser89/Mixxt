@@ -8,7 +8,7 @@
             <% if @user.last_name %>
               <%= @user.last_name %>
             <% else %>
-              <%= @user.email %>
+              <%= @user.email[/[^@]+/] %>
             <% end %>
           </div>
           <div>
