@@ -7,11 +7,11 @@
   <% if user_signed_in? %>
     <div class="header">
       <div class="topbar">
-        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'img_circle'%>
+        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
         <div class="link">
           <div>Hello,
-            <% if @user.last_name %>
-              <%= @user.last_name %>
+            <% if @user.full_name %>
+              <%= @user.full_name %>
             <% else %>
               <%= @user.email %> <%# split string into first part of email %>
             <% end %>
@@ -30,19 +30,22 @@
             <h2><%= history.song.name %></h2>
             <p><%= history.song.artist %></p>
             <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
-            <p><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></p>
+            <p>Last Shared: <strong><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></strong></p>
           </div>
-          <button data-toggle="popover" data-container="body" data-placement="top" data-content="WooHoo, copied to your clipboard" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
+          <button data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard"  data-trigger="focus" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
         </div>
       <% end %>
+      <!--    <button type="button" id="test" class="example-popover btn btn-lg btn-danger" data-toggle="popover" data-trigger="focus"title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button> -->
     </div>
   <% else %>
     <p class="login-msg">Please <%= link_to 'log in', new_user_session_path, class: 'link-login' %> to see your favorites.</p>
   <% end %>
 </div>
+
 <script>
   const sharebuttons = document.querySelectorAll(".btn-blue")
   sharebuttons.forEach(btn => btn.addEventListener("click", (e)=>
     console.log(e)
     ));
 </script>
+

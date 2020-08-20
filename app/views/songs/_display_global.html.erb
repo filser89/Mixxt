@@ -6,17 +6,27 @@
   </div> -->
   <div class="header">
     <div class="topbar">
-      <%#= image_tag @user.image_url, class: 'img_circle'%>
-      <div class="link">
+      <% if user_signed_in? %>
+        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
+        <div class="link">
+          <div>Hello,
+            <% if @user.full_name %>
+              <%= @user.full_name %>
+            <% else %>
+              <%= @user.email %>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
         <div>
           Our Most Popular Mixxt!
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
   <div class="cards">
-    <div class="card-container">
-      <% @globals.each do |song| %>
+    <% @globals.each do |song| %>
+      <div class="card-container">
         <%= image_tag song.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
         <div class="card-container-infos">
           <h2><%= song.song.name %></h2>
@@ -24,7 +34,7 @@
           <p>Shared <strong><%= song.share_count %></strong> times</p>
         </div>
         <button type="button" data-song_id="<%= song.song_id %>" class="btn-blue" >Share</button>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
