@@ -1,4 +1,3 @@
 <% if user_signed_in? && current_user.audd_key %>
-  <button class="js-start button button--start">Recognize!</button>
+  <button class="js-start button button--start" id="recognize">Recognize!</button>
 <% end %>
-<%= javascript_pack_tag 'songs_recognition', 'data-turbolinks-track': 'reload', defer: true %>

@@ -1,3 +1,4 @@
+import {rotateAnimation} from './home.js'
 // We'll save all chunks of audio in this array.
 const chunks = [];
 
@@ -5,7 +6,7 @@ const chunks = [];
 let recorder = null;
 
 // We'll save some html elements here once the page has loaded.
-let startButton = null;
+let recognizeButton = null;
 // let stopButton = null;
 
 /**
@@ -45,7 +46,7 @@ const getUserToken = () => {
  * Start recording.
  */
 const startRecording = () => {
-    startButton.innerText = "Listening..."
+    recognizeButton.innerText = "Listening..."
     recorder.start();
 };
 
@@ -54,10 +55,10 @@ const startRecording = () => {
  */
 const stopRecording = () => {
     recorder.stop();
-    startButton.innerText = "Recognize!"
+    recognizeButton.innerText = "Recognize!"
 };
 
-const recordAudio = () => {
+const recordAudio = (e) => {
   startRecording()
   setTimeout(stopRecording, 5000)
 }
@@ -85,26 +86,24 @@ const callAuddApi = async (blob, callback) => {
       return response.json();
     })
     .then((result) => {
-      console.log(result);
-      // assignValueToTextbox(result)
+      console.log(111, result);
+      rotateAnimation('disc',1, result)
     })
   })
 
 }
 
-const assignValueToTextbox = (result) =>{
-  const textbox = document.querySelector('#link')
-  const spotifyLink = result.result.spotify.external_urls.spotify
-  textbox.value = spotifyLink
+const assignLink = (result) =>{
+  return result.result.spotify.external_urls.spotify
 }
 
 const onStopFunc = async () => {
-  callAuddApi(saveRecording(), assignValueToTextbox)
+  callAuddApi(saveRecording(), rotateAnimation)
 }
 
 // Wait until everything has loaded
 (function() {
-    startButton = document.querySelector('.js-start');
+    recognizeButton = document.querySelector('#recognize');
 
     // We'll get the user's audio input here.
     navigator.mediaDevices.getUserMedia({
@@ -120,6 +119,6 @@ const onStopFunc = async () => {
     });
 
     // Add event listeners to the start button
-    startButton.addEventListener('mouseup', recordAudio);
+    recognizeButton.addEventListener('mouseup', recordAudio);
 })();
 
