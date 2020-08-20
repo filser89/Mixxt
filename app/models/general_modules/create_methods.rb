@@ -41,7 +41,7 @@ module CreateMethods
         artist = link.match(artist_reg).to_s
         search_query = "#{name} #{artist}".gsub(/[^\x00-\x7F]/, "")
         qq_hash = call_qq_api_search(search_query)
-        puts "QQ HASH #{qq_hash}"
+        # puts "QQ HASH #{qq_hash}"
         qq_id = qq_hash["songid"]
         url = "http://y.qq.com/#type=song&id=#{qq_id}"
         # p url
@@ -89,35 +89,58 @@ module CreateMethods
       img
     end
 
+    def create_spotify_song_detail(song, search_query)
+      token = get_spotify_token
+      return unless token
+      spotify_hash = call_spotify_api_search(token, search_query)
+      return unless spotify_hash
+      spotify_url = spotify_hash["external_urls"]["spotify"]
+      SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
+      p "spotify_url: #{spotify_url}"
+    end
+
+    def create_qq_song_detail(song, search_query)
+      qq_hash = call_qq_api_search(search_query)
+      return unless qq_hash
+      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
+      SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
+      p "qq_url: #{qq_url}"
+    end
+
+    def create_net_ease_song_detail(song, search_query)
+      net_ease_hash = call_net_ease_api_search(search_query)
+      return unless net_ease_hash
+      net_ease_hash
+      net_ease_id = net_ease_hash["id"]
+      net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
+      SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
+      p "net_ease_url: #{net_ease_url}"
+
+    end
+
+    def asign_cover_image_url_to_song(song)
+      song_detail = song.song_details.find_by(app: "spotify")
+      return unless song_detail
+      spotify_hash = song_detail.info_hash
+      p spotify_hash
+      song.cover_image_url = upload_img(img_from_url(spotify_hash["album"]["images"][1]["url"]), song)
+      song.save
+    end
     def create_song_from_spotify_track(track, user)
       name = name_to_s(track["name"])
       album = track["album"]["name"]
       artist = artists_arr_to_s(track["artists"])
 
       song = Song.create!(name: name, album: album, artist: artist)
-      cover_image_url = upload_img(img_from_url(track["album"]["images"][1]["url"]), song)
-      song.cover_image_url = cover_image_url
-      song.save
       search_query = generate_search_query(name, artist, album)
       p "Creating #{name} by #{artist}"
-
       spotify_hash = track
       spotify_url = track["external_urls"]["spotify"]
       SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
       p "spotify_url: #{spotify_url}"
-
-      net_ease_hash = call_net_ease_api_search(search_query)
-      net_ease_id = net_ease_hash["id"]
-      net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
-      SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
-      p "net_ease_url: #{net_ease_url}"
-
-      qq_hash = call_qq_api_search(search_query)
-      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
-
-      SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
-      p "qq_url: #{qq_url}"
-
+      asign_cover_image_url_to_song(song)
+      create_net_ease_song_detail(song, search_query)
+      create_qq_song_detail(song, search_query)
       History.create!(song: song, user: user)
 
       p "Created #{name} by #{artist}"
@@ -141,22 +164,9 @@ module CreateMethods
       net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
       SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
       p "net_ease_url: #{net_ease_url}"
-      # call spotify
-      token = get_spotify_token
-      spotify_hash = call_spotify_api_search(token, search_query)
-      spotify_url = spotify_hash["external_urls"]["spotify"]
-      # SongDetail spotify
-      SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
-      # Song.img_url
-      song.cover_image_url = upload_img(img_from_url(spotify_hash["album"]["images"][1]["url"]), song)
-      song.save
-      # call  qq
-      qq_hash = call_qq_api_search(search_query)
-      qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
-
-      # SongDetailQQ
-      SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
-      p "qq_url: #{qq_url}"
+      create_spotify_song_detail(song, search_query)
+      asign_cover_image_url_to_song(song)
+      create_qq_song_detail(song, search_query)
 
       # History
       History.create!(song: song, user: user)
@@ -172,28 +182,16 @@ module CreateMethods
       album = track["albumname"]
       song = Song.create!(name: name, album: album, artist: artist)
       search_query = generate_search_query(name, artist, album)
+      p search_query
       p "Creating #{name} by #{artist}"
 
       qq_hash = track
       qq_url = "http://y.qq.com/#type=song&id=#{qq_hash["songid"]}"
       SongDetail.create!(song: song, app: "qq", url: qq_url, info_hash: qq_hash)
       p "qq_url: #{qq_url}"
-
-      # call spotify
-      token = get_spotify_token
-      spotify_hash = call_spotify_api_search(token, search_query)
-      spotify_url = spotify_hash["external_urls"]["spotify"]
-      # SongDetail spotify
-      SongDetail.create!(song: song, app: "spotify", url: spotify_url, info_hash: spotify_hash)
-      # Song.img_url
-      song.cover_image_url = upload_img(img_from_url(spotify_hash["album"]["images"][1]["url"]), song)
-      song.save
-
-      net_ease_hash = call_net_ease_api_search(search_query)
-      net_ease_id = net_ease_hash["id"]
-      net_ease_url = "https://y.music.163.com/m/song/#{net_ease_id}"
-      SongDetail.create!(song: song, app: "net_ease", url: net_ease_url, info_hash: net_ease_hash)
-      p "net_ease_url: #{net_ease_url}"
+      create_spotify_song_detail(song, search_query)
+      asign_cover_image_url_to_song(song)
+      create_net_ease_song_detail(song, search_query)
 
       History.create!(song: song, user: user)
 
@@ -218,7 +216,7 @@ module CreateMethods
         create_song_from_spotify_track(track, user)
 
       elsif app == "net_ease"
-        id_reg = /(?<=https:\/\/y.music.163.com\/m\/song\/).+(?=\/)/
+        id_reg = /(?<=https:\/\/y.music.163.com\/m\/song\/).+(?=\/)|(?<=https:\/\/y.music.163.com\/m\/song\?id=).+(?=&)/
         net_ease_id = link.match(id_reg).to_s
 
         # # get the track

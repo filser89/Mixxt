@@ -9,6 +9,7 @@
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
     "local-time": "^2.1.0",
+    "popper": "^1.0.1",
     "popper.js": "^1.16.1",
     "turbolinks": "^5.2.0"
   },
