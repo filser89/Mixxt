@@ -34,17 +34,23 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def get_token
+    @user = current_user
+    p @user.audd_key
+    render json: { token: @user.audd_key }
+  end
+
   private
 
 
   def upload_img(img, user)
     LC.init :application_id => ENV["APPLICATION_ID"],
-            :api_key        => ENV["API_KEY"],
-            :quiet     => true
+      :api_key        => ENV["API_KEY"],
+      :quiet     => true
     photo = LC::File.new({
-      :body => IO.read(img),
-      :local_filename => "avatar_#{user.id}.jpg",
-      :content_type => "image/jpeg",
+                           :body => IO.read(img),
+                           :local_filename => "avatar_#{user.id}.jpg",
+                           :content_type => "image/jpeg",
     })
     photo.save
     photo.url

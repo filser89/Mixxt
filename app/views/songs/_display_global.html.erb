@@ -10,10 +10,10 @@
         <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
         <div class="link">
           <div>Hello,
-            <% if @user.full_name %>
+            <% if @user.first_name != '' || @user.last_name != '' %>
               <%= @user.full_name %>
             <% else %>
-              <%= @user.email %>
+              <%= @user.email[/[^@]+/] %>
             <% end %>
           </div>
           <div>

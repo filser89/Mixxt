@@ -35,7 +35,7 @@ module ApiCall
       app_credentials = Base64.strict_encode64("#{ENV["CLIENT_ID"]}:#{ENV["CLIENT_SECRET"]}")
       headers["Authorization"] = "Basic #{app_credentials}"
       res = RestClient.post(url, payload, headers)
-      p "res"
+      # p "res"
       data = JSON.parse(res)
 
       data["access_token"]

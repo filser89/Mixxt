@@ -6,7 +6,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-
     record == user
     # raise
     # false

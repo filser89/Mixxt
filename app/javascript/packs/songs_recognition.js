@@ -1,3 +1,4 @@
+import {rotateAnimation} from './home.js'
 // We'll save all chunks of audio in this array.
 const chunks = [];
 
@@ -5,7 +6,7 @@ const chunks = [];
 let recorder = null;
 
 // We'll save some html elements here once the page has loaded.
-let startButton = null;
+let recognizeButton = null;
 // let stopButton = null;
 
 /**
@@ -28,10 +29,24 @@ const saveRecording = () => {
     return blob
 };
 
+
+const getUserToken = () => {
+  console.log('running')
+  return new Promise((resolve, reject) => {
+    fetch('get-user-token')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.token)
+      resolve(data.token)
+    });
+  })
+
+}
 /**
  * Start recording.
  */
 const startRecording = () => {
+    recognizeButton.innerText = "Listening..."
     recorder.start();
 };
 
@@ -40,15 +55,15 @@ const startRecording = () => {
  */
 const stopRecording = () => {
     recorder.stop();
+    recognizeButton.innerText = "Recognize!"
 };
 
-const recordAudio = () => {
-  console.log("started recording")
+const recordAudio = (e) => {
   startRecording()
   setTimeout(stopRecording, 5000)
 }
 
-const callAuddApi = (blob, callback) => {
+const callAuddApi = async (blob, callback) => {
   console.log("Calling api")
   let myHeaders = new Headers();
   let formdata = new FormData();
@@ -62,32 +77,33 @@ const callAuddApi = (blob, callback) => {
     redirect: "follow",
     mode: "cors",
   };
-
-  fetch("https://api.audd.io/?api_token=bf9bfa87bf6318d61e1e7fcc72dfda4b", requestOptions)
+  const token = getUserToken()
+  token.then(res => {
+    console.log(res)
+  fetch(`https://api.audd.io/?api_token=${res}`, requestOptions)
     .then((response) => {
       console.log(response)
       return response.json();
     })
     .then((result) => {
-      console.log(result);
-      assignValueToTextbox(result)
+      console.log(111, result);
+      rotateAnimation('disc',1, result)
     })
+  })
 
 }
 
-const assignValueToTextbox = (result) =>{
-  const textbox = document.querySelector('#link')
-  const spotifyLink = result.result.spotify.external_urls.spotify
-  textbox.value = spotifyLink
+const assignLink = (result) =>{
+  return result.result.spotify.external_urls.spotify
 }
 
-const onStopFunc = () => {
-  callAuddApi(saveRecording(), assignValueToTextbox)
+const onStopFunc = async () => {
+  callAuddApi(saveRecording(), rotateAnimation)
 }
 
 // Wait until everything has loaded
 (function() {
-    startButton = document.querySelector('.js-start');
+    recognizeButton = document.querySelector('#recognize');
 
     // We'll get the user's audio input here.
     navigator.mediaDevices.getUserMedia({
@@ -103,6 +119,6 @@ const onStopFunc = () => {
     });
 
     // Add event listeners to the start button
-    startButton.addEventListener('mouseup', recordAudio);
+    recognizeButton.addEventListener('mouseup', recordAudio);
 })();
 

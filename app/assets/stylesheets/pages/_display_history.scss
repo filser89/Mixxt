@@ -23,10 +23,13 @@
 }
 
 @media only screen and (max-width: 320px) {
+  .header {
+    font-size: 11px;
+  }
   .cards {
     padding-left: 10px;
     padding-right: 10px;
-    margin-bottom: 40px;
+    margin-bottom: 75px;
   }
   .card-container {
     height: 75px;
@@ -92,6 +95,9 @@
 }
 
 @media only screen and (min-width: 576px) {
+  .header {
+    font-size: 16px;
+  }
   .cards {
     padding-left: 50px;
     padding-right: 50px;

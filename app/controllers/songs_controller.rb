@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg, :share_from_btn]
+  skip_before_action :authenticate_user!, only: [:home, :create, :display_global, :fetch_msg, :share_from_btn, :songs_recognition]
 
 
 
@@ -7,6 +7,8 @@ class SongsController < ApplicationController
     @histories = display_history
     @globals = display_global
     @favorites = display_favorites
+    @token = current_user.audd_key if user_signed_in? && current_user.audd_key
+
     # raise
   end
 
@@ -18,11 +20,6 @@ class SongsController < ApplicationController
   end
 
   def songs_recognition
-    @token = current_user.audd_key
-    p @token
-    @histories = display_history
-    @globals = display_global
-    @favorites = display_favorites
   end
 
   def create
