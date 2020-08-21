@@ -2,7 +2,7 @@
   <div class="topbar">
     <% if user_signed_in? %>
       <%= link_to user_path(current_user) do %>
-        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
+        <%= image_tag @user.image_url, class: 'img_circle topbar-item' rescue image_tag 'profile.jpg', class: 'img_circle'%>
       <% end %>
       <div class="link">
         <div>Hi
@@ -12,9 +12,9 @@
             <%= @user.email[/[^@]+/] %>
           <% end %>
         </div>
-        <%= link_to 'Log out', destroy_user_session_path, :method => :delete %>
+        <%= link_to 'Log out', destroy_user_session_path, :method => :delete, class: 'topbar-item' %>
       <% else %>
-        <%= link_to 'Log in', new_user_session_path %>
+        <%= link_to 'Log in', new_user_session_path, class: 'topbar-item' %>
       <% end %>
     </div>
   </div>

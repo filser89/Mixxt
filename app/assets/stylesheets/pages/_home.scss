@@ -47,7 +47,7 @@ html, body {
   width: 95%;
   margin: 0 auto;
   text-align: center;
-  position: relative;
+  // position: relative;
 }
 .disc-wave {
   position: relative;
@@ -227,3 +227,8 @@ body {
   left: 0;
   top: 0;
 }
+
+// .topbar-item{
+//   z-index: 10;
+//   position: relative;
+// }
