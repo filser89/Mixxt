@@ -44,3 +44,10 @@ function pop () {
     })
 }
 // document.querySelector('[data-toggle="popover"]').addEventListener("click", pop)
+ const clickpics = document.querySelectorAll(".clickpic")
+  clickpics.forEach(btn => btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    shareLink(e);
+  }));
+
+

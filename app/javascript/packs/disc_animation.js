@@ -1,5 +1,3 @@
-
-
     // var looper;
     var degrees = 0;
     //***button animation
@@ -11,7 +9,7 @@
     const mixxtbtn= document.querySelector("#mixxtbtn")
 
 
-     function rotateAnimation(el,speed, result) {
+     function rotateAnimation(el,speed) {
       var elem = document.getElementById(el);
       elem.style.zIndex = 10
 
@@ -27,14 +25,14 @@
         elem.style.transform = "rotate("+degrees+"deg)";
       }
       if (degrees < 360) {
-        setTimeout(() => {rotateAnimation(el, speed, result)},1)
+        setTimeout(() => {rotateAnimation(el, speed)},1)
         degrees+=1;
         document.querySelector('.glow-on-hover').style.opacity = 0.8
         // console.log(popup)
 
       } else {
         degrees = 0
-        popup(result)
+        popup(msg)
         elem.style.zIndex = 0
         document.querySelector('.glow-on-hover').style.opacity = 0
         if(navigator.userAgent.match("Chrome")){
@@ -71,37 +69,19 @@
       modal.style.display ='block'
     }
 
-    const setLink = (result) => {
-      let link
-      if (result === null) {
-        link = document.querySelector("#link").value
-      } else if (result.result === null || result.result.spotify === undefined) {
-        link = "Song was not recognized"
-      } else {
-        link = result.result.spotify.external_urls.spotify
-      }
-      return link
-    }
-
-    function popup (result) {
-      let link = setLink(result)
-      // let link = result === null ? document.querySelector("#link").value : result.result.spotify.external_urls.spotify
+    function popup (msg) {
+      let link = document.querySelector("#link").value
       if (link===""){
         displaymessage()
         document.querySelector('#msg').innerHTML = 'Please drop your link above!'
         document.querySelector('#copy').innerHTML = 'Okay'
         document.querySelector('#exampleModalLongTitle').innerHTML = ''
       }
-      else if (link === "Song was not recognized") {
-        displaymessage()
-        document.querySelector('#copy').innerHTML = 'Okay'
-        document.querySelector('#msg').innerHTML = 'Oops, we could not recognise this song!'
-      }
       else if (linkvalid(link)===false) {
         console.log(linkvalid(link))
         displaymessage()
-        document.querySelector('#copy').innerHTML = 'Okay'
         document.querySelector('#msg').innerHTML = 'Oops, we do not recognise your link!'
+        document.querySelector('#copy').innerHTML = 'Okay'
       }
       else {
       fetch(`fetch_msg?link=${link}`)
@@ -124,57 +104,9 @@
     }
 
     const clickFunc = () => {
-      rotateAnimation('disc',1, null)
+      rotateAnimation('disc',1)
       // setTimeout(popup(msg),5000)
 
     }
 
     mixxtbtn.addEventListener("click", clickFunc)
-
-    //***copy link to clickboard
-    document.querySelector('#copy').addEventListener("click", () => {
-          copyText("msg")
-
-          var modal = document.querySelector('#exampleModalCenter')
-          modal.classList.remove('show')
-          modal.style.display = 'none'
-          document.querySelector("#link").value=""
-    })
-
-    document.querySelector('#close').addEventListener("click", () => {
-          var modal = document.querySelector('#exampleModalCenter')
-          modal.classList.remove('show')
-          modal.style.display = 'none'
-          document.querySelector("#link").value=""
-    })
-
-    function copyText(ev){
-      console.log("hi");
-      let div = document.getElementById(ev);
-      let text = div.innerText;
-      let textArea  = document.createElement('textarea');
-      textArea.width  = "1px";
-      textArea.height = "1px";
-      textArea.background =  "transparents" ;
-      textArea.value = text;
-      document.body.append(textArea);
-      textArea.select();
-      document.execCommand('copy');   //No i18n
-      document.body.removeChild(textArea);
-    }
-
-const icons = document.querySelectorAll('.nav-icon');
-
-function deselect (icon) {
-  icon.classList.remove('current')
-}
-
-function selectThis () {
-  icons.forEach(deselect)
-  this.classList.add('current')
-}
-
-icons.forEach((icon) => {
-  icon.addEventListener('click', selectThis)
-});
-export {rotateAnimation}
