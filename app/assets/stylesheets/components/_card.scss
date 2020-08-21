@@ -43,3 +43,54 @@
   margin-top: 8px;
   color: white;
 }
+
+.card-container-global {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+.cards-top-three {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-container-infos-global {
+  padding-left: 10px;
+}
+
+.card-container-infos-global h2 {
+  font-size: 1.8rem;
+}
+
+.card-container-infos-global p {
+  margin-bottom: 0;
+}
+
+.artist {
+  padding-bottom: 1px !important;
+}
+
+.share-count {
+  margin-bottom: 1px !important;
+}
+
+.kill-all-design {
+  background: transparent !important;
+  color: white;
+  font-size: 12px;
+  padding-right: 10px !important;
+}

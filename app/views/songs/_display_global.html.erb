@@ -27,8 +27,23 @@
       <% end %>
     </div>
   </div>
+  <div class="cards-top-three">
+    <% @globals.first(3).each do |song| %>
+      <div class="card-container-global" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= song.song.cover_image_url %>)" >
+        <%#= image_tag song.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
+        <div class="card-container-infos-global">
+          <h2 class="song-name"><%= song.song.name %></h2>
+          <p class="artist"><%= song.song.artist %></p>
+          <p class="share-count">Shared <strong><%= song.share_count %></strong> times</p>
+        </div>
+        <!-- <div class="share"> -->
+        <button data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard" type="button" data-song_id="<%= song.song_id %>" class="btn-blue kill-all-design" >Share</button>
+        <!-- </div> -->
+      </div>
+    <% end %>
+  </div>
   <div class="cards">
-    <% @globals.each do |song| %>
+    <% @globals[3..-1].each do |song| %>
       <div class="card-container">
         <%= image_tag song.song.cover_image_url, class: 'cover-image' rescue image_tag 'http://p1.music.126.net/6y-UleORITEDbvrOLV0Q8A==/5639395138885805.jpg', class: 'cover-image' %>
         <div class="card-container-infos">
