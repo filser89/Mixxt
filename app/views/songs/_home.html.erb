@@ -2,7 +2,9 @@
   <div class="topbar">
     <%= render "recognition_btn" %>
     <% if user_signed_in? %>
-      <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
+      <%= link_to user_path(current_user) do %>
+        <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
+      <% end %>
       <div class="link">
         <div>Hello,
           <% if @user.first_name != '' || @user.last_name != '' %>
