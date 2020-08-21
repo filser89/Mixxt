@@ -13,7 +13,7 @@
               textArea.width  = "1px";
               textArea.height = "1px";
               textArea.background =  "transparents" ;
-              textArea.value = `Mixxt to your favorite app:\n Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}\n Mixxt your own at: http://mixxt.wogenapp.cn`;
+              textArea.value = `Hey! Checkout this new song I discovered:\nSpotify: ${message.spotify}\nNetEase: ${message.net_ease}\nQQ Music: ${message.qq}\nShare your own song at: http://mixxt.wogenapp.cn`;
               document.body.append(textArea);
               textArea.select();
               document.execCommand('copy');   //No i18n
@@ -48,6 +48,9 @@ function pop () {
   clickpics.forEach(btn => btn.addEventListener("click", function(e) {
     e.preventDefault();
     shareLink(e);
+    setTimeout(function () {
+            $('.popover').fadeOut('slow');
+        }, 3000);
   }));
 
 

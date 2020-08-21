@@ -13,7 +13,6 @@ require("packs/header")
 require("packs/copylink")
 require("packs/home")
 require("packs/homepage_link")
-require("packs/disc_animation")
 require("packs/songs_recognition")
 require("packs/navbar")
 
@@ -36,6 +35,7 @@ require("packs/navbar")
 import 'popper.js'
 import "bootstrap"
 import 'jquery'
+
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 

@@ -18,7 +18,7 @@
     })
 
     function copyText(ev){
-      console.log("hi");
+      console.log("copying text");
       let div = document.getElementById(ev);
       let text = div.innerText;
       let textArea  = document.createElement('textarea');

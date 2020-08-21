@@ -9,7 +9,7 @@
       <% if user_signed_in? %>
         <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
         <div class="link">
-          <div>Hello,
+          <div>Hi
             <% if @user.first_name != '' || @user.last_name != '' %>
               <%= @user.full_name %>
             <% else %>
@@ -17,12 +17,12 @@
             <% end %>
           </div>
           <div>
-            Our Most Popular Mixxt!
+            Global Shares
           </div>
         </div>
       <% else %>
         <div>
-          Our Most Popular Mixxt!
+          Global Shares
         </div>
       <% end %>
     </div>
