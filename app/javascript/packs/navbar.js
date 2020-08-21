@@ -1,11 +1,9 @@
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
-});
-// custom code
-
-
-// Select elements
+  // alert("loaded");
+  // Select elements
+  console.log('loaded')
 
   const views = document.querySelectorAll(".views_container")
   const btns = document.querySelectorAll(".nav-icon")
@@ -15,6 +13,7 @@ document.addEventListener('turbolinks:load', () => {
 
   const toggleShown = (e) => {
     // e.preventDefault()
+    console.log("e", e)
 
     let shown = document.querySelector(".views_container.shown")
     const divToShow = document.querySelector(`.${e.target.dataset.view}`)
@@ -32,4 +31,9 @@ document.addEventListener('turbolinks:load', () => {
 
 //  Event listener
 
-btns.forEach(btn => btn.addEventListener("click", toggleShown))
+  btns.forEach(btn => btn.addEventListener("click", toggleShown))
+});
+// custom code
+
+
+
