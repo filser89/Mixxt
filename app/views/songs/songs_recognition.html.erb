@@ -1,16 +1,16 @@
 <div class="container-reg">
   <h3>Mixxt Recognize</h3>
-  <p><strong>Mixxt Recognize</strong> is a beta feature that uses <%= link_to "AudD Music Recogniton Api", "https://audd.io/"  %>.</p>
+  <p><strong>Mixxt Recognize</strong> is a beta feature that uses <%= link_to "AudD Music Recogniton Api", "https://audd.io/", class:"formbutton"  %>.</p>
   <p>Please follow these steps to use Mixxt Recognize:</p>
   <ul>
-    <li><%= link_to "Sign in", new_user_session_path %> to your Mixxt account or <%= link_to "Sign up",  new_user_registration_path %> if you do not have an account yet.</li>
+    <li><%= link_to "Sign in", new_user_session_path, class:"formbutton"  %> to your Mixxt account or <%= link_to "Sign up",  new_user_registration_path, class:"formbutton" %> if you do not have an account yet.</li>
     <li>Get your own Audd API key <%= link_to "here", "https://t.me/auddbot?start=api." %>. <i>You will need to use Telegram for that.</i> </li>
     <li>Enter the Audd Key on your<% if user_signed_in? %>
-        <%= link_to "profile page", edit_user_path(current_user) %>
+        <%= link_to "profile page", edit_user_path(current_user), class:"formbutton"%>
       <% else %>
         profile page
       <% end %> .</li>
-    <li>Now you will see a <strong>Recognize</strong> button on <%= link_to "Mixxt home page", root_path %>.</li>
-    <%= link_to "Home", root_path, class: "btn btn-secondary" %>
+    <li>Now you will see a <strong>Recognize</strong> button on <%= link_to "Mixxt home page", root_path, class:"formbutton" %>.</li>
   </ul>
+  <%= link_to "Home", root_path, class: "btn btn-secondary" %>
 </div>
