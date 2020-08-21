@@ -1,5 +1,4 @@
 
-
     // var looper;
     var degrees = 0;
     //***button animation
@@ -54,8 +53,10 @@
     }
     //***generate link by popup
     const generateMessage = (message) =>{
-      return `Mixxt to your favorite app:\n Spotify: ${message.spotify}\n NetEase: ${message.net_ease}\n QQ Music: ${message.qq}\n Mixxt your own at: http://mixxt.wogenapp.cn`
+      console.log(message)
+      return `Hey! Checkout this new song I discovered:\nSpotify: ${message.spotify}\nNetEase: ${message.net_ease}\nQQ Music: ${message.qq}\nShare your own song at: http://mixxt.wogenapp.cn`
     }
+
     function linkvalid (link) {
       if (link.match(/https:\/\/c.y.qq.com/)===null && link.match(/https:\/\/y.music.163.com/)===null && link.match(/https:\/\/open.spotify.com/)===null) {
         return false
@@ -107,6 +108,7 @@
       fetch(`fetch_msg?link=${link}`)
         .then(response => response.json())
         .then(data => {
+          console.log("fetching message")
           console.log(data)
           var modal = document.querySelector('#exampleModalCenter')
           modal.classList.add('show')
@@ -149,7 +151,7 @@
     })
 
     function copyText(ev){
-      console.log("hi");
+      console.log("copying text");
       let div = document.getElementById(ev);
       let text = div.innerText;
       let textArea  = document.createElement('textarea');

@@ -4,7 +4,7 @@
       <div class="topbar">
         <%= image_tag @user.image_url, class: 'img_circle' rescue image_tag 'profile.jpg', class: 'img_circle'%>
         <div class="link">
-          <div>Hello,
+          <div>Hi
             <% if @user.first_name != '' || @user.last_name != '' %>
               <%= @user.full_name %>
             <% else %>
@@ -12,7 +12,7 @@
             <% end %>
           </div>
           <div>
-            Check Out Your Fav Mixxt!
+            Your Favorites
           </div>
         </div>
       </div>
