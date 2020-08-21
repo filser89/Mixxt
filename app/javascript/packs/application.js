@@ -15,6 +15,7 @@ require("packs/home")
 require("packs/homepage_link")
 require("packs/disc_animation")
 require("packs/songs_recognition")
+require("packs/navbar")
 
 
 
@@ -38,34 +39,7 @@ import 'jquery'
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
-document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
-  // initSelect2();
-});
-// custom code
 
-
-// Select elements
-
-  const views = document.querySelectorAll(".views_container")
-  const btns = document.querySelectorAll(".nav-icon")
-
-// Callback function
-
-
-  const toggleShown = (e) => {
-    // e.preventDefault()
-
-    const shown = document.querySelector(".views_container.shown")
-    const divToShow = document.querySelector(`.${e.target.dataset.view}`)
-    shown.classList.toggle("shown")
-    divToShow.classList.toggle("shown")
-
-}
-
-//  Event listener
-
-btns.forEach(btn => btn.addEventListener("click", toggleShown))
 
 
 
