@@ -1,8 +1,8 @@
 <% if user_signed_in? && current_user.audd_key %>
-  <button class="recognize button button--start" id="recognize"> 
+  <button class="recognize button button--start" id="recognize">
     <div><%= icon('fas', 'headphones', class: "recognize-icon") %></div>
     <div>Recognize!</div>
   </button>
 <% else %>
-  <%= link_to "Try our Recognize feature",  songs_recognition_path, class: "recognize" %>
+  <%= link_to "Try our Recognize feature!",  songs_recognition_path, class: "recognize recognize-text" %>
 <% end %>
