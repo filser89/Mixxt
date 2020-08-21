@@ -119,6 +119,6 @@ const onStopFunc = async () => {
     });
 
     // Add event listeners to the start button
-    recognizeButton.addEventListener('mouseup', recordAudio);
+    if (recognizeButton != null) recognizeButton.addEventListener('mouseup', recordAudio);
 })();
 

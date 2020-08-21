@@ -1,3 +1,5 @@
 <% if user_signed_in? && current_user.audd_key %>
-  <button class="js-start button button--start" id="recognize">Recognize!</button>
+  <button class="recognize button button--start" id="recognize">Recognize!</button>
+<% else %>
+  <%= link_to "Try our Recognize feature",  songs_recognition_path, class: "recognize" %>
 <% end %>
