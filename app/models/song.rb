@@ -12,6 +12,8 @@ class Song < ApplicationRecord
     msg[:net_ease] = net_ease ? net_ease.url : "Could not find this song on NetEase Music"
     qq = song_details.find_by(app: "qq")
     msg[:qq] = qq ? qq.url : "Could not find this song on QQ Music"
+    msg[:name] = name
+    msg[:artist] = artist
     p msg
     msg
   end

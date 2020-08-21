@@ -46,7 +46,7 @@ const getUserToken = () => {
  * Start recording.
  */
 const startRecording = () => {
-    recognizeButton.innerText = "Listening..."
+    recognizeButton.innerHTML = "<div><i class='fas fa-headphones recognize-icon'></i></div><div>Listening...</div>"
     recorder.start();
 };
 
@@ -55,7 +55,7 @@ const startRecording = () => {
  */
 const stopRecording = () => {
     recorder.stop();
-    recognizeButton.innerText = "Recognize!"
+    recognizeButton.innerHTML = "<div><i class='fas fa-headphones recognize-icon'></i></div><div>Recognize!</div>"
 };
 
 const recordAudio = (e) => {
