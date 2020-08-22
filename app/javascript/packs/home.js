@@ -54,7 +54,7 @@
     //***generate link by popup
     const generateMessage = (message) =>{
       console.log(message)
-      return `Hey! Checkout this new song I discovered:\nSpotify: ${message.spotify}\nNetEase: ${message.net_ease}\nQQ Music: ${message.qq}\nShare your own song at: http://mixxt.wogenapp.cn`
+      return `Hey! Checkout this song ${message.name} by ${message.artist}!\nSpotify: ${message.spotify}\nNetEase: ${message.net_ease}\nQQ Music: ${message.qq}\nShare your own song at: http://mixxt.wogenapp.cn`
     }
 
     function linkvalid (link) {
@@ -141,6 +141,7 @@
           modal.classList.remove('show')
           modal.style.display = 'none'
           document.querySelector("#link").value=""
+          location.reload()
     })
 
     document.querySelector('#close').addEventListener("click", () => {
