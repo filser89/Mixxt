@@ -97,12 +97,15 @@
         displaymessage()
         document.querySelector('#copy').innerHTML = 'Okay'
         document.querySelector('#msg').innerHTML = 'Oops, we could not recognise this song!'
+        setTimeout(location.reload(),2000)
       }
       else if (linkvalid(link)===false) {
         console.log(linkvalid(link))
         displaymessage()
         document.querySelector('#copy').innerHTML = 'Okay'
         document.querySelector('#msg').innerHTML = 'Oops, we do not recognise your link!'
+        location.reload()
+        setTimeout(location.reload(),2000)
       }
       else {
       fetch(`fetch_msg?link=${link}`)
