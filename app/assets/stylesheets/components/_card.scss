@@ -48,7 +48,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  width: 300px;
+  width: 95%;
   height: 200px;
   display: flex;
   align-items: flex-end;
@@ -93,4 +93,18 @@
   color: white;
   font-size: 12px;
   padding-right: 10px !important;
+}
+
+@media only screen and (min-width: 425px) {
+  .card-container-global {
+    width: 85%;
+    height: 250px;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  .card-container-global {
+    width: 90%;
+    height: 310px;
+  }
 }
