@@ -1,3 +1,4 @@
+document.addEventListener('turbolinks:load', () => {
 //   let copyBtn = document.getElementById('copy');
 // console.log("copied")
 //   copyBtn.addEventListener('click', ()=> copyText("msg"));
@@ -53,4 +54,4 @@ function pop () {
         }, 3000);
   }));
 
-
+});
