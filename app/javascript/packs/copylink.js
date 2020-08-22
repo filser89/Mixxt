@@ -13,7 +13,7 @@
               textArea.width  = "1px";
               textArea.height = "1px";
               textArea.background =  "transparents" ;
-              textArea.value = `Hey! Checkout this new song I discovered:\nSpotify: ${message.spotify}\nNetEase: ${message.net_ease}\nQQ Music: ${message.qq}\nShare your own song at: http://mixxt.wogenapp.cn`;
+              textArea.value = `Hey! Checkout this song ${message.name} by ${message.artist}:\nSpotify: ${message.spotify}\nNetEase: ${message.net_ease}\nQQ Music: ${message.qq}\nShare your own song at: http://mixxt.wogenapp.cn`;
               document.body.append(textArea);
               textArea.select();
               document.execCommand('copy');   //No i18n

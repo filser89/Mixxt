@@ -69,6 +69,6 @@ class SongsController < ApplicationController
 
   def display_history
     @user = current_user if user_signed_in?
-    @user.histories.order(:created_at => :desc) if user_signed_in?
+    @user.histories.order(:updated_at => :desc) if user_signed_in?
   end
 end

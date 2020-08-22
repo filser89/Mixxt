@@ -30,7 +30,7 @@
             <h2><%= history.song.name %></h2>
             <p><%= history.song.artist %></p>
             <!-- <p><%= history.song.created_at.strftime("%m-%e-%y %H:%M") %></p> -->
-            <p>Last Shared: <strong><%= local_time(history.song.created_at, "%m-%e-%y %H:%M" ) %></strong></p>
+            <p>Last Shared: <strong><%= local_time(history.song.updated_at, "%m-%e-%y %H:%M" ) %></strong></p>
           </div>
           <button data-toggle="popover" data-container="body" data-placement="top" data-content="Copied to your clipboard" type="button" data-song_id="<%= history.song_id %>" class="btn-blue" >Share</button>
         </div>
